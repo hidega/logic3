@@ -1,0 +1,10 @@
+{
+  "name": "logic3",
+  "version": "1.0.1",
+  "description": "Three valued logical type",
+  "license": "Apache-2.0",
+  "files": [
+    "index.js",
+    "src/**"
+  ]
+}
