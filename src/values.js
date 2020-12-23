@@ -1,31 +1,51 @@
 'use strict'
 
-var operations = require('./operations')
+var Operations = require('./operations')
 
-function Value(strVal, boolVal, intVal, isTrue, isFalse, isNil) {
+function Logic3Value(intVal) {
+  var isTrue = intVal === Logic3Value.trueInt
+  var isFalse = intVal === Logic3Value.falseInt
+  var isNil = intVal === Logic3Value.nilInt 
+  var strVal = isTrue ? 'True' : (isFalse ? 'False' : 'Nil') 
+  var boolVal = isTrue ? true : (isFalse ? false : undefined)  
+
+  var operations = new Operations(Logic3Value.trueInt, Logic3Value.falseInt, Logic3Value.nilInt)
+
+  var performOperation = (f, other) => {
+    if(!Logic3Value.checkLogic3(other)) {
+      throw new Error('Bad input, Logic3 value expected.')
+    }
+    return Logic3Value.ofInteger(f(this.toNumber(), other.toNumber()))
+  } 
+
   this.toString = () => strVal
 
   this.toBoolean = () => boolVal
 
   this.toNumber = () => intVal
 
-  this.add = other => operations.add(this, other)
+  this.add = other => performOperation(operations.add, other)
 
-  this.subtract = other => operations.subtract(this, other)
+  this.subtract = other => performOperation(operations.sub, other)
 
-  this.multiple = other => operations.multiple(this, other)
+  this.multiply = other => performOperation(operations.mul, other)
 
-  this.divide = other => operations.divide(this, other)
+  this.divide = other => performOperation(ooerations.div, other)
 
-  this.and = other => operations.and(this, other)
+  this.and = other => performOperation(operations.and, other)
 
-  this.or = other => operations.or(this, other)
+  this.or = other => performOperation(operations.or, other)
 
-  this.xor = other => operations.xor(this, other)
+  this.xor = other => performOperation(operations.xor, other)
 
-  this.imply = other => operations.imply(this, other)
+  this.delta = other => performOperation(operations.del, other)
 
-  this.negate = () => operations.negate(this)
+  this.imply = other => performOperation(operations.imp, other)
+
+  this.negate = () => Logic3Value.ofInteger(operations.negate(intVal))
+
+  this.equals = other => Logic3Value.checkLogic3(other) && 
+    ((other.isTrue() && this.isTrue()) || (other.isFalse() && this.isFalse()) || (other.isNil() && this.isNil()))
 
   this.notEquals = other => !this.equals(other)
 
@@ -41,37 +61,39 @@ function Value(strVal, boolVal, intVal, isTrue, isFalse, isNil) {
 
   this.isntNil = () => !isNil
 
-  this.whenEquals = (other, f) => {
-    var result = { otherwise: g => g(this, other) }
-    if(this.equals(other)) {
-      f(this, other)
-      result = { otherwise: () => {} }
-    }
-    return result
+  //this.whenEquals = (other, f) => {}
+  //...
+}
+
+Logic3Value.checkLogic3 = obj => obj instanceof Logic3Value
+
+Logic3Value.trueInt = 1
+
+Logic3Value.falseInt = -1
+
+Logic3Value.nilInt = 0
+
+Logic3Value.instances = {}
+
+Logic3Value.ofInteger = n => {
+  var key = n.toString()
+  var result = Logic3Value.instances[key]
+  if(!result) {
+    result = new Logic3Value(n)
+    Logic3Value.instances[key] = result
   }
+  return result
 }
 
-function Logic3Nil() {
-  Value.call(this, 'Nil', undefined, 0, false, false, true)
+var test = obj => Logic3Value.checkLogic3(obj)
 
-  this.equals = other => other instanceof Logic3Nil
+var values = {
+  check: Logic3Value.checkLogic3,
+  test,
+  True: Logic3Value.ofInteger(Logic3Value.trueInt),
+  False: Logic3Value.ofInteger(Logic3Value.falseInt),
+  Nil: Logic3Value.ofInteger(Logic3Value.nilInt)
 }
 
-function Logic3True() {
-  Value.call(this, 'True', undefined, 0, false, true, false)
-
-  this.equals = other => other instanceof Logic3True
-}
-
-function Logic3False() {
-  Value.call(this, 'False', undefined, 0, false, true, false)
-
-  this.equals = other => other instanceof Logic3False
-}
-
-module.exports = {
-  true: new Logic3True(),
-  false: new Logic3False(),
-  nil: new Logic3Nil()
-}
+module.exports = values
 

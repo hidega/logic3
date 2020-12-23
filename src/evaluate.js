@@ -16,15 +16,15 @@ var isEmptyObject = val => typeof val === 'object' && Object.keys(val).length ==
 
 var isZero = val => val === 0
 
-var iterableHasntNext = val => typeof val[Symbol.iterator] === 'function' && !val.iterator.hasNext()
-
 module.exports = val => {
-  var result = values.true
-  if(val === null || val === undefined || isInvalidNumber(val) || isInvalisdDate(val)) {
-    result = values.nil
+  var result = values.True
+  if(values.check(val)) {
+    result = val
+  } else if(val === null || val === undefined || isInvalidNumber(val) || isInvalisdDate(val)) {
+    result = values.Nil
   } else if(isFalse(val) || isEmptyString(val) || isEmptyArray(val) || 
-      isEmptyObject(val) || isZero(val) || iterableHasntNext(val)) {
-    result = values.false
+      isEmptyObject(val) || isZero(val)) {
+    result = values.False
   }
   return result
 }
