@@ -242,7 +242,7 @@ var caseCalculateDivide = () => {
 var caseEqualityFluent = () => {
   var whenEquals = values.True.whenEquals(values.False)
   assert(typeof whenEquals === 'object')
-  assert(Object.keys(whenEquals).length === 2) 
+  assert(Object.keys(whenEquals).length === 2)
   assert(typeof whenEquals.then === 'function')
   assert(typeof whenEquals.thenValueOf === 'function')
 
@@ -287,7 +287,7 @@ var caseEqualityFluent = () => {
 
   var then = values.True.whenEquals(values.False).then(() => {})
   assert(typeof then === 'object')
-  assert(Object.keys(then).length === 2) 
+  assert(Object.keys(then).length === 2)
   assert(typeof then.value === 'function')
   assert(typeof then.otherwise === 'function')
 
@@ -319,9 +319,9 @@ var caseEqualityFluent = () => {
   assert.equal(undefined, intResult)
   intResult = values.Nil.whenEquals(values.False).then(assert.fail).value()
   assert.equal(undefined, intResult)
-  intResult = values.Nil.whenEquals(values.Nil).then(l3ToInt).value() 
+  intResult = values.Nil.whenEquals(values.Nil).then(l3ToInt).value()
   assert.equal(0, intResult)
-  assert.equal(6, invocationCount) 
+  assert.equal(6, invocationCount)
 
   intResult = values.True.whenEquals(values.False).then(assert.fail).otherwise((l3, k3) => {
     assert(values.True.equals(l3))
@@ -380,21 +380,21 @@ var caseEqualityFluent = () => {
   intResult = values.False.whenEquals(values.True).then(assert.fail).otherwise(5)
   assert.equal(5, intResult)
 
-  intResult = values.Nil.whenEquals(values.Nil).then(l3ToInt).otherwise(assert.fail) 
+  intResult = values.Nil.whenEquals(values.Nil).then(l3ToInt).otherwise(assert.fail)
   assert.equal(0, intResult)
-  assert.equal(12 + 1, invocationCount) 
-  intResult = values.False.whenEquals(values.False).then(l3ToInt).otherwise(assert.fail) 
+  assert.equal(12 + 1, invocationCount)
+  intResult = values.False.whenEquals(values.False).then(l3ToInt).otherwise(assert.fail)
   assert.equal(2, intResult)
-  assert.equal(14, invocationCount) 
-  intResult = values.True.whenEquals(values.True).then(l3ToInt).otherwise(assert.fail) 
+  assert.equal(14, invocationCount)
+  intResult = values.True.whenEquals(values.True).then(l3ToInt).otherwise(assert.fail)
   assert.equal(1, intResult)
-  assert.equal(15, invocationCount) 
+  assert.equal(15, invocationCount)
 }
 
 var caseInequalityFluent = () => {
   var whenNotEquals = values.True.whenNotEquals(values.False)
   assert(typeof whenNotEquals === 'object')
-  assert(Object.keys(whenNotEquals).length === 2) 
+  assert(Object.keys(whenNotEquals).length === 2)
   assert(typeof whenNotEquals.then === 'function')
   assert(typeof whenNotEquals.thenValueOf === 'function')
 
@@ -416,11 +416,11 @@ var caseInequalityFluent = () => {
   }
 
   var intResult = values.True.whenNotEquals(values.True).thenValueOf(assert.fail)
-  assert.equal(undefined, intResult)  
+  assert.equal(undefined, intResult)
   intResult = values.Nil.whenNotEquals(values.Nil).thenValueOf(assert.fail)
-  assert.equal(undefined, intResult)  
+  assert.equal(undefined, intResult)
   intResult = values.False.whenNotEquals(values.False).thenValueOf(assert.fail)
-  assert.equal(undefined, intResult)  
+  assert.equal(undefined, intResult)
   intResult = values.True.whenNotEquals(values.False).thenValueOf(5)
   assert.equal(5, intResult)
   intResult = values.True.whenNotEquals(values.False).thenValueOf(l3ToInt(values.True, values.False))
@@ -444,7 +444,7 @@ var caseInequalityFluent = () => {
 
   var then = values.True.whenNotEquals(values.False).then(() => {})
   assert(typeof then === 'object')
-  assert(Object.keys(then).length === 2) 
+  assert(Object.keys(then).length === 2)
   assert(typeof then.value === 'function')
   assert(typeof then.otherwise === 'function')
 
@@ -493,7 +493,7 @@ var caseInequalityFluent = () => {
   assert.equal(0, intResult)
   assert.equal(15, invocationCount)
   intResult = values.Nil.whenNotEquals(values.Nil).then(assert.fail).otherwise(5)
-  assert.equal(5, intResult) 
+  assert.equal(5, intResult)
 
   intResult = values.True.whenNotEquals(values.False).then(l3ToInt(values.True, values.False)).otherwise(assert.fail)
   assert.equal(1, intResult)
@@ -512,7 +512,7 @@ var caseInequalityFluent = () => {
   assert.equal(20, invocationCount)
   intResult = values.Nil.whenNotEquals(values.True).then(l3ToInt(values.Nil, values.True)).otherwise(assert.fail)
   assert.equal(0, intResult)
-  assert.equal(21, invocationCount) 
+  assert.equal(21, invocationCount)
 }
 
 var caseComplexFluent = () => {}
@@ -670,13 +670,13 @@ var caseTamperProofness = () => {
 }
 
 smokeTests()
-caseValuesTrue() 
-caseValuesFalse() 
-caseValuesNil() 
-caseValuesCheck() 
-caseCalculateMultiply() 
-caseCalculateAdd() 
-caseCalculateSubtract() 
+caseValuesTrue()
+caseValuesFalse()
+caseValuesNil()
+caseValuesCheck()
+caseCalculateMultiply()
+caseCalculateAdd()
+caseCalculateSubtract()
 caseCalculateDivide()
 caseCalculateAnd()
 caseCalculateOr()

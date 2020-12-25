@@ -1,5 +1,5 @@
 'use strict'
- 
+
 function Functions(funs) {
   var functions = Object.assign({}, funs)
 

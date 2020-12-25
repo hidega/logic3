@@ -17,11 +17,11 @@ Logic3Value.checkLogic3 = obj => obj instanceof Logic3Value
 
 Logic3Value.instances = {}
 
-Logic3Value.ofInteger = n => {
-  var key = n.toString()
-  Logic3Value.instances[key] || (Logic3Value.instances[key] = Object.freeze(new Logic3Value(n)))
-  return Logic3Value.instances[key]
-}
+Logic3Value.ofInteger = n => Logic3Value.instances[n.toString()]
+
+Logic3Value.instances[Constants.trueInt.toString()] = Object.freeze(new Logic3Value(Constants.trueInt))
+Logic3Value.instances[Constants.falseInt.toString()] = Object.freeze(new Logic3Value(Constants.falseInt))
+Logic3Value.instances[Constants.nilInt.toString()] = Object.freeze(new Logic3Value(Constants.nilInt))
 
 var test = obj => Logic3Value.checkLogic3(obj)
 
