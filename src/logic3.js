@@ -2,14 +2,14 @@
 
 var evaluate = require('./evaluate')
 var values = require('./values')
+var EvalCont = require('./eval-cont')
 
-function Logic3() {
-  this.evaluate = evaluate
-  this.test = values.test
-  this.True = values.True
-  this.False = values.False
-  this.Nil = values.Nil
+module.exports = {
+  EvalCont,
+  evaluate: subject => new EvalCont(evaluate(subject), subject),
+  test: values.test,
+  True: values.True,
+  False: values.False,
+  Nil: values.Nil
 }
-
-module.exports = new Logic3()
 

@@ -1,0 +1,50 @@
+
+l1.whenEquals(l2).then(l => {})
+l1.whenEquals(l2).then(l => {}).otherwise((l1, l2) => {})
+
+var v = l1.whenEquals(l2).thenValueOf(l => 1)
+var v = l1.whenEquals(l2).then(l => 1).value()
+var v = l1.whenEquals(l2).then(l => 1).otherwise((l1, l2) => 2)
+var v = l1.whenEquals(l2).then(l => {}).otherwise((l1, l2) => 2)
+var v = l1.whenEquals(l2).then(l => 1).otherwise((l1, l2) => {})
+
+l3--+--wE--+--t--+--v
+    |      |     `--o
+    |      `--tV   
+    |
+    `--wNE-+--t--+--v
+           |     `--o
+           `--tV   
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+l1.whenTrue(l => {})
+var v = l1.whenTrue(l => {}).value()                                   
+var v = l1.whenTrue(l => {}).otherwise(l => {})                               
+var v = l1.whenTrue(l => {}).whenFalse(l => {}).value()                   
+var v = l1.whenTrue(l => {}).whenFalse(l => {}).otherwise(l => {})        
+var v = l1.whenTrue(l => {}).whenFalse(l => {}).whenNil(l => {})       
+   
+var v = l1.whenNotTrue(l => {}).else(l => {})      
+
+l3--+--wT--+--v
+    |      |--o
+    |      |--wF--+--v
+    |      |      |--o
+    |      |      `--wN
+    |      |
+    |      `--wN--+--v
+    |             |--o
+    |             `--wF
+    |       
+    |--wnT-+--v
+    |      `--o
+    |  
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+var v = eval(furulya()).whenTrue((subject, l3val) => {...})
+var v = eval(furulya()).whenTrue((subject, l3val) => {...}).otherwise((subject, l3val) => {...})
+
+
+
