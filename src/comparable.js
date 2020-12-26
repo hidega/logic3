@@ -2,25 +2,10 @@
 
 var Functions = require('./functions')
 
-var resolveResult = (f, l3, other) => typeof f === 'function' ? f(l3, other) : f
-
-function Then(result, mappedResult, l3, other) {
-  var functions = new Functions({
-    value: () => mappedResult,
-    otherwise: f => result ? mappedResult : resolveResult(f, l3, other)
-  })
-
-  this.value = f => Functions.invokeFunction(functions, f, 'value')
-
-  this.otherwise = f => Functions.invokeFunction(functions, f, 'otherwise')
-}
-
-Then.newInstance = (result, mappedResult, l3, other)  => Object.freeze(new Then(result, mappedResult, l3, other))
-
 function HasConsequence(result, l3, other) {
   var functions = new Functions({
-    then: f => Then.newInstance(result, result ? resolveResult(f, l3, other) : undefined, l3, other),
-    thenValueOf: f => result ? resolveResult(f, l3, other) : undefined
+    then: f => Functions.ValOtw.newInstance(result, result ? Functions.resolveResult3(f, l3, other) : undefined, l3, other),
+    thenValueOf: f => result ? Functions.resolveResult3(f, l3, other) : undefined
   })
 
   this.then = f => Functions.invokeFunction(functions, f, 'then')

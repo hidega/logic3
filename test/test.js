@@ -5,6 +5,7 @@ var values = require('../src/values')
 var valuesOther = require('../src/values')
 var evaluate = require('../src/evaluate')
 var Operations = require('../src/operations')
+var L3 = require('..')
 
 var T = 1
 var F = 2
@@ -658,22 +659,156 @@ var caseCalculateDel = () => {
 }
 
 var caseTamperProofness = () => {
+  var tamper = fluent => {
+    var key = Object.keys(fluent)[0]
+    assert.throws(() => delete fluent[key])
+    assert.throws(() => fluent[key] = () => {})
+    assert.throws(() => fluent.foo = () => {})
+  }
+
   assert.throws(() => values.True.foo = 'Foo!')
   var nil = values.Nil.delta(values.Nil)
   assert.throws(() => delete nil.add)
   assert.throws(() => values.False.equals = () => false)
 
-  var fluent = values.True.whenEquals(values.False)
-  assert.throws(() => delete fluent.then)
-  assert.throws(() => fluent.then = () => {})
-  assert.throws(() => fluent.then1 = () => {})
+  tamper(values.True.whenEquals(values.False))
+  tamper(values.True.whenNotEquals(values.False))
+  tamper(values.True.whenNotNil(values.False))
+  tamper(values.True.whenNotFalse(values.False))
+  tamper(values.True.whenNotTrue(values.False))
+
+  tamper(values.False.whenEquals(values.False))
+  tamper(values.False.whenNotEquals(values.False))
+  tamper(values.False.whenNotNil(values.False))
+  tamper(values.False.whenNotFalse(values.False))
+  tamper(values.False.whenNotTrue(values.False))
+
+  tamper(values.Nil.whenEquals(values.False))
+  tamper(values.Nil.whenNotEquals(values.False))
+  tamper(values.Nil.whenNotNil(values.False))
+  tamper(values.Nil.whenNotFalse(values.False))
+  tamper(values.Nil.whenNotTrue(values.False))
+
+  tamper(values.test(values.Nil))
+  tamper(values.test(values.Nil).ok(() => {}))
+  tamper(values.test(values.Nil).fail(() => {}))
+  tamper(values.test(someObject))
+}
+
+var caseWhenIs = () => {
+}
+
+var caseWhenNot = () => {
+  var intResult = values.True.whenNotNilThen(l3 => l3.toNumber())
+  assert.equal(1, intResult)
+  intResult = values.True.whenNotNilThen(5)
+  assert.equal(5, intResult)
+  intResult = values.True.whenNotFalseThen(l3 => l3.toNumber())
+  assert.equal(1, intResult)
+  intResult = values.True.whenNotFalseThen(5)
+  assert.equal(5, intResult)
+  intResult = values.False.whenNotNilThen(l3 => l3.toNumber())
+  assert.equal(2, intResult)
+  intResult = values.False.whenNotTrueThen(l3 => l3.toNumber())
+  assert.equal(2, intResult)
+  intResult = values.Nil.whenNotFalseThen(l3 => l3.toNumber())
+  assert.equal(0, intResult)
+  intResult = values.Nil.whenNotTrueThen(l3 => l3.toNumber())
+  assert.equal(0, intResult)
+  intResult = values.True.whenNotTrueThen(assert.fail)
+  assert.equal(undefined, intResult)
+  intResult = values.False.whenNotFalseThen(assert.fail)
+  assert.equal(undefined, intResult)
+  intResult = values.Nil.whenNotNilThen(assert.fail)
+  assert.equal(undefined, intResult)
+  
+  intResult = values.True.whenNotNil(l3 => l3.toNumber()).value()
+  assert.equal(1, intResult)
+  intResult = values.True.whenNotNil(5).value()
+  assert.equal(5, intResult)
+  intResult = values.True.whenNotFalse(l3 => l3.toNumber()).value()
+  assert.equal(1, intResult)
+  intResult = values.True.whenNotFalse(5).value()
+  assert.equal(5, intResult)
+  intResult = values.False.whenNotNil(l3 => l3.toNumber()).value()
+  assert.equal(2, intResult)
+  intResult = values.False.whenNotTrue(l3 => l3.toNumber()).value()
+  assert.equal(2, intResult)
+  intResult = values.Nil.whenNotFalse(l3 => l3.toNumber()).value()
+  assert.equal(0, intResult)
+  intResult = values.Nil.whenNotTrue(l3 => l3.toNumber()).value()
+  assert.equal(0, intResult)
+  intResult = values.True.whenNotTrue(assert.fail).value()
+  assert.equal(undefined, intResult)
+  intResult = values.False.whenNotFalse(assert.fail).value()
+  assert.equal(undefined, intResult)
+  intResult = values.Nil.whenNotNil(assert.fail).value()
+  assert.equal(undefined, intResult)
+  
+  intResult = values.True.whenNotNil(l3 => l3.toNumber()).otherwise(assert.fail)
+  assert.equal(1, intResult)
+  intResult = values.True.whenNotNil(5).otherwise(assert.fail)
+  assert.equal(5, intResult)
+  intResult = values.True.whenNotFalse(l3 => l3.toNumber()).otherwise(assert.fail)
+  assert.equal(1, intResult)
+  intResult = values.True.whenNotFalse(5).otherwise(assert.fail)
+  assert.equal(5, intResult)
+  intResult = values.False.whenNotNil(l3 => l3.toNumber()).otherwise(assert.fail)
+  assert.equal(2, intResult)
+  intResult = values.False.whenNotTrue(l3 => l3.toNumber()).otherwise(assert.fail)
+  assert.equal(2, intResult)
+  intResult = values.Nil.whenNotFalse(l3 => l3.toNumber()).otherwise(assert.fail)
+  assert.equal(0, intResult)
+  intResult = values.Nil.whenNotTrue(l3 => l3.toNumber()).otherwise(assert.fail)
+  assert.equal(0, intResult)
+  intResult = values.True.whenNotTrue(assert.fail).otherwise(() => 3)
+  assert.equal(3, intResult)
+  intResult = values.False.whenNotFalse(assert.fail).otherwise(() => 3)
+  assert.equal(3, intResult)
+  intResult = values.Nil.whenNotNil(assert.fail).otherwise(5)
+  assert.equal(5, intResult)  
+}
+
+var caseValuesTest = () => {
+  var invocationCount = 0
+  assert.equal(2, Object.keys(values.test(values.Nil)).length)
+
+  values.test(values.Nil).ok(() => invocationCount++)
+  values.test(values.Nil).fail(assert.fail)
+  values.test(values.Nil).ok(() => invocationCount++).fail(assert.fail)
+  values.test(values.Nil).fail(assert.fail).ok(() => invocationCount++)
+  assert.equal(3, invocationCount)
+
+  values.test(values.True).ok(() => invocationCount++)
+  values.test(values.True).fail(assert.fail)
+  values.test(values.True).ok(() => invocationCount++).fail(assert.fail)
+  values.test(values.True).fail(assert.fail).ok(() => invocationCount++)
+  assert.equal(6, invocationCount)
+
+  values.test(values.False).ok(() => invocationCount++)
+  values.test(values.False).fail(assert.fail)
+  values.test(values.False).ok(() => invocationCount++).fail(assert.fail)
+  values.test(values.False).fail(assert.fail).ok(() => invocationCount++)
+  assert.equal(9, invocationCount)
+
+  values.test(someObject).ok(assert.fail)
+  values.test(someObject).fail(() => invocationCount++)
+  values.test(someObject).ok(assert.fail).fail(() => invocationCount++)
+  values.test(someObject).fail(() => invocationCount++).ok(assert.fail)
+  assert.equal(12, invocationCount)
+
+  values.test(null).ok(assert.fail).fail(() => {})
+  values.test(undefined).ok(assert.fail).fail(() => {})
 }
 
 smokeTests()
+caseWhenNot()
+caseWhenIs()
 caseValuesTrue()
 caseValuesFalse()
 caseValuesNil()
 caseValuesCheck()
+caseValuesTest()
 caseCalculateMultiply()
 caseCalculateAdd()
 caseCalculateSubtract()

@@ -2,12 +2,13 @@
 
 var evaluate = require('./evaluate')
 var values = require('./values')
-var EvalCont = require('./eval-cont')
 
 module.exports = {
-  EvalCont,
-  evaluate: subject => new EvalCont(evaluate(subject), subject),
+  withObject: (l3, obj) => values.valueWithExtras(l3, obj),
+  evaluate: subject => values.valueWithExtras(evaluate(subject), subject),
+  of: evaluate,
   test: values.test,
+  check: values.check,
   True: values.True,
   False: values.False,
   Nil: values.Nil
