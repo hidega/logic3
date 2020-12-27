@@ -16,15 +16,17 @@ function Logic3Value(intVal, extras) {
   FluentLogic.call(this, extras)
 }
 
+Logic3Value.newInstance = (n, e) => Object.freeze(new Logic3Value(n, e))
+
 Logic3Value.checkLogic3 = obj => obj instanceof Logic3Value
 
 Logic3Value.instances = {}
 
 Logic3Value.ofInteger = n => Logic3Value.instances[n.toString()]
 
-Logic3Value.instances[Constants.trueInt.toString()] = Object.freeze(new Logic3Value(Constants.trueInt))
-Logic3Value.instances[Constants.falseInt.toString()] = Object.freeze(new Logic3Value(Constants.falseInt))
-Logic3Value.instances[Constants.nilInt.toString()] = Object.freeze(new Logic3Value(Constants.nilInt))
+Logic3Value.instances[Constants.trueInt.toString()] = Logic3Value.newInstance(Constants.trueInt)
+Logic3Value.instances[Constants.falseInt.toString()] = Logic3Value.newInstance(Constants.falseInt)
+Logic3Value.instances[Constants.nilInt.toString()] = Logic3Value.newInstance(Constants.nilInt)
 
 var values = {
   check: Logic3Value.checkLogic3,
@@ -32,7 +34,7 @@ var values = {
   True: Logic3Value.ofInteger(Constants.trueInt),
   False: Logic3Value.ofInteger(Constants.falseInt),
   Nil: Logic3Value.ofInteger(Constants.nilInt),
-  valueWithExtras: (l3, extras) => new Logic3Value(l3.toNumber(), extras)
+  valueWithExtras: (l3, extras) => Logic3Value.newInstance(l3.toNumber(), extras)
 }
 
 module.exports = values

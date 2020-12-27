@@ -25,17 +25,21 @@ var v = l1.whenTrue(l => {}).whenFalse(l => {}).value()
 var v = l1.whenTrue(l => {}).whenFalse(l => {}).otherwise(l => {})        
 var v = l1.whenTrue(l => {}).whenFalse(l => {}).whenNil(l => {})       
    
-var v = l1.whenNotTrue(l => {}).else(l => {})      
+var v = l1.whenNotTrue(l => {}).otherwise(l => {})      
 
 l3--+--wT--+--v
     |      |--o
+    |      |--wFt
     |      |--wF--+--v
     |      |      |--o
     |      |      `--wN
     |      |
+    |      |--wNt
     |      `--wN--+--v
     |             |--o
     |             `--wF
+    |
+    |--wTt
     |       
     |--wnT-+--v
     |      `--o

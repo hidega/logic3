@@ -32,7 +32,7 @@ Functions.ValOtw = function(result, mappedResult, l3, other) {
   this.otherwise = f => Functions.invokeFunction(functions, f, 'otherwise')
 }
 
-Functions.ValOtw.newInstance = (result, mappedResult, l3, other)  => Object.freeze(new Functions.ValOtw(result, mappedResult, l3, other))
+Functions.ValOtw.newInstance = (...params) => Object.freeze(new Functions.ValOtw(...params))
 
 module.exports = Functions
 
