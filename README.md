@@ -19,7 +19,7 @@ var L3 = require('logic3')
 
 
 ```
-[See also](https://github.com/hidega/logic3/blob/development/test/examples.js)
+[More examples](https://github.com/hidega/logic3/blob/development/test/examples.js)
 
 ### [API documentation](https://htmlpreview.github.io/?https://github.com/hidega/logic3/blob/development/api-doc.html)
 
