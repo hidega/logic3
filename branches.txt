@@ -1,0 +1,3 @@
+The master branch contains the latest stable version.
+The development branch contains the code under development.
+There is no other branch.
