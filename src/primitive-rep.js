@@ -2,7 +2,8 @@
  
 var Constants = require('./constants')
 
-function HasPrimitiveRepresentations(intVal) {
+function HasPrimitiveRepresentations(n) {
+  var intVal = parseInt(n)
   var isTrue = intVal === Constants.trueInt
   var isFalse = intVal === Constants.falseInt
   var strVal = isTrue ? 'True' : (isFalse ? 'False' : 'Nil') 

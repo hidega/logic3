@@ -4,7 +4,7 @@ var values = require('./values')
 
 var isInvalidNumber = val => typeof val === 'number' && isNaN(val)
 
-var isInvalisdDate = val => val instanceof Date && val.toString() === 'Invalid Date'
+var isInvalidDate = val => val instanceof Date && val.toString() === 'Invalid Date'
 
 var isFalse = val => val === false
 
@@ -20,7 +20,7 @@ module.exports = val => {
   var result = values.True
   if(values.check(val)) {
     result = val
-  } else if(val === null || val === undefined || isInvalidNumber(val) || isInvalisdDate(val)) {
+  } else if(val === null || val === undefined || isInvalidNumber(val) || isInvalidDate(val)) {
     result = values.Nil
   } else if(isFalse(val) || isEmptyString(val) || isEmptyArray(val) ||
       isEmptyObject(val) || isZero(val)) {
