@@ -20,5 +20,5 @@ var L3 = require('logic3')
 
 ```
 
-###[API documentation](https://github.com/hidega/logic3/blob/master/api-doc.html)
+### [API documentation](https://htmlpreview.github.io/?https://github.com/hidega/logic3/blob/master/api-doc.html)
 
