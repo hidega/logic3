@@ -5,7 +5,7 @@ logic3
 
 Installation
 ------------
-   npm install logic3
+`npm install logic3`
 
 Project status
 --------------
