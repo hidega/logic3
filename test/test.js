@@ -262,6 +262,10 @@ var caseEqualityFluent = () => {
     return l3.toNumber()
   }
 
+  assert.equal(values.True.whenEquals(null).then(assert.fail).otherwise(5), 5)
+  assert.equal(values.True.whenEquals(undefined).then(assert.fail).otherwise(5), 5)
+  assert.equal(values.True.whenEquals(someObject).then(assert.fail).otherwise(() => 5), 5)
+
   var intResult = values.True.whenEquals(values.True).thenValueOf(l3ToInt)
   assert.equal(T, intResult)
   assert.equal(1, invocationCount)
