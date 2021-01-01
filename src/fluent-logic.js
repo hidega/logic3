@@ -2,7 +2,7 @@
 
 var Functions = require('./functions')
 
-function Level2ValOtw(result, mappedResult, l3, other, predicateName) {
+function Level2ValOtw(result, mappedResult, l3, other, predicateName, tn) {
   var pname = predicateName.replace('is', 'when')
   var otw = f => result ? mappedResult : Functions.resolveResult3(f, l3, other)
 
@@ -17,11 +17,22 @@ function Level2ValOtw(result, mappedResult, l3, other, predicateName) {
   this.otherwise = f => Functions.invokeFunction(functions, f, 'otherwise')
 
   this[pname] = f => Functions.invokeFunction(functions, f, pname)
+
+  this.typename = tn + pname.replace('when', 'When')
 }
 
 Level2ValOtw.newInstance = (...params) => Object.freeze(new Level2ValOtw(...params))
 
+var getTypename = (n, extras) => 'Logic3' + (extras ? 'Ext' : '') + n 
+
 function WhenIs(result, mappedResult, predicateNameA, predicateNameB, l3, extras) {
+  var typename = getTypename('WhenNil', extras)
+  if(predicateNameA === 'isFalse' && predicateNameB === 'isNil') {
+    typename = getTypename('WhenTrue', extras)
+  } else if(predicateNameA === 'isTrue' && predicateNameB === 'isNil') {
+    typename = getTypename('WhenFalse', extras)
+  }   
+
   var pnameA = predicateNameA.replace('is', 'when')
   var pnameB = predicateNameB.replace('is', 'when')
   var pnameAt = pnameA + 'Then'
@@ -30,7 +41,7 @@ function WhenIs(result, mappedResult, predicateNameA, predicateNameB, l3, extras
   var elseIs = (f, pn, rn) => {
     var r = result || l3[pn]()
     var fwd = result ? mappedResult : (r ? Functions.resolveResult3(f, l3, extras) : undefined)
-    return Level2ValOtw.newInstance(r, r ? fwd : undefined, l3, extras, rn)
+    return Level2ValOtw.newInstance(r, r ? fwd : undefined, l3, extras, rn, typename)
   } 
 
   var elseThen = (pn, f) => result ? mappedResult : (l3[pn]() ? Functions.resolveResult3(f, l3, extras) : undefined)
@@ -43,6 +54,8 @@ function WhenIs(result, mappedResult, predicateNameA, predicateNameB, l3, extras
     [pnameAt]: f => elseThen(predicateNameA, f),
     [pnameBt]: f => elseThen(predicateNameB, f)
   })
+
+  this.typename = typename
 
   this.value = f => Functions.invokeFunction(functions, f, 'value')
 
@@ -80,13 +93,13 @@ function FluentWhenIs(extras) {
 function FluentLogic(extras) {
   var then = (predicate, f) => predicate ? Functions.resolveResult3(f, this, extras) : undefined
 
-  var whenNot = (predicate, f) => Functions.ValOtw.newInstance(predicate, then(predicate, f), this, extras)
+  var whenNot = (predicate, f, tn) => Functions.ValOtw.newInstance(predicate, then(predicate, f), this, extras, tn)
 
-  this.whenNotTrue = f => whenNot(this.isNotTrue(), f)
+  this.whenNotTrue = f => whenNot(this.isNotTrue(), f, getTypename('WhenNotTrue', extras))
 
-  this.whenNotFalse = f => whenNot(this.isNotFalse(), f)
+  this.whenNotFalse = f => whenNot(this.isNotFalse(), f, getTypename('WhenNotFalse', extras))
 
-  this.whenNotNil = f => whenNot(this.isNotNil(), f)
+  this.whenNotNil = f => whenNot(this.isNotNil(), f, getTypename('WhenNotNil', extras))
 
   this.whenNotTrueThen = f => then(this.isNotTrue(), f)
 

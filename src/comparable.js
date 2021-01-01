@@ -2,18 +2,20 @@
 
 var Functions = require('./functions')
 
-function HasConsequence(result, l3, other) {
+function HasConsequence(result, l3, other, typename) {
   var functions = new Functions({
-    then: f => Functions.ValOtw.newInstance(result, result ? Functions.resolveResult3(f, l3, other) : undefined, l3, other),
+    then: f => Functions.ValOtw.newInstance(result, result ? Functions.resolveResult3(f, l3, other) : undefined, l3, other, typename + 'Then'),
     thenValueOf: f => result ? Functions.resolveResult3(f, l3, other) : undefined
   })
 
   this.then = f => Functions.invokeFunction(functions, f, 'then')
 
   this.thenValueOf = f => Functions.invokeFunction(functions, f, 'thenValueOf')
+
+  this.typename = typename
 }
 
-HasConsequence.newInstance = (result, l3, other) => Object.freeze(new HasConsequence(result, l3, other))
+HasConsequence.newInstance = (...params) => Object.freeze(new HasConsequence(...params))
 
 function Comparable(checkLogic3) {
   this.equals = other => checkLogic3(other) &&
@@ -21,9 +23,9 @@ function Comparable(checkLogic3) {
 
   this.notEquals = other => !this.equals(other)
 
-  this.whenEquals = other => HasConsequence.newInstance(this.equals(other), this, other)
+  this.whenEquals = other => HasConsequence.newInstance(this.equals(other), this, other, 'Logic3WhenEquals')
 
-  this.whenNotEquals = other => HasConsequence.newInstance(!this.equals(other), this, other)
+  this.whenNotEquals = other => HasConsequence.newInstance(!this.equals(other), this, other, 'Logic3WhenNotEquals')
 }
 
 module.exports = Comparable

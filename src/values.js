@@ -14,6 +14,7 @@ function Logic3Value(intVal, extras) {
   OffersOperations.call(this, Logic3Value.checkLogic3, Logic3Value.ofInteger)
   Comparable.call(this, Logic3Value.checkLogic3)
   FluentLogic.call(this, extras)
+  this.typename = 'Logic3' + (extras ? 'Ext' : '') + 'Value'
 }
 
 Logic3Value.newInstance = (n, e) => Object.freeze(new Logic3Value(n, e))

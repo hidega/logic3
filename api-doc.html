@@ -6,40 +6,243 @@
     <style>
       * {
         font-family: Arial, Helvetica, sans-serif;
+        line-height: 140%;
       }
-      p {
+      a {
+        text-decoration: none;
+        color: navy;
+      }
+      div {
         font-size: 14px;
       }
-      .monospace {
+      h2 {
+        font-size: 20px;
+      }
+      h3, 
+      .l3-monospace, 
+      .l3-method .l3-arguments,
+      .l3-functionalias .l3-arguments,
+      .l3-functionalias .l3-foralias,
+      .l3-typeref,
+      .l3-typerefspec,
+      .l3-class .l3-type,
+      .l3-functionalias .l3-type,
+      .l3-functionalias .l3-membername,
+      .l3-class .l3-membername, 
+      .l3-class > .l3-classname {
         font-family: monospace, monospace;
+        font-size: 0.9em;
+      }
+      .l3-class .l3-membername {
+        color: darkgreen;
+        font-weight: bold;
+      }
+      .l3-typeref,
+      .l3-typerefspec {
+        color: navy;
+        font-weight: bold;
+      }
+      .l3-typeref,
+      .l3-class > .l3-classname,
+      .l3-functionalias .l3-membername {
+        font-weight: bold;
+      }
+      .l3-class .l3-summary,
+      .l3-functionalias .l3-summary { 
+        padding: 0.4em 0 0.7em 0;
+      }
+      .l3-class > .l3-classname,
+      .l3-functionalias .l3-membername {
+        font-size: 1.0em;
+        padding-bottom: 0.4em;
+        color: navy;
+      }
+      .l3-functionalias .l3-membername::before,
+      .l3-class .l3-membername::before,
+      .l3-functionalias .l3-foralias::before,
+      .l3-class > .l3-classname::before { 
+        color: gray;
+        font-weight: normal;
+      }
+      .l3-functionalias .l3-foralias::before,
+      .l3-class .l3-membername::before {
+        font-size: 0.9em;
+      }
+      .l3-class > .l3-classname::before {
+        font-size: 0.7em;
+        content: "class   "; 
+      }
+      .l3-functionalias .l3-membername::before {
+        font-size: 0.7em;
+        content: "alias   "; 
+      }
+      .l3-functionalias .l3-foralias::before { 
+        content: "  for "; 
+      }
+      .l3-field .l3-membername::before { 
+        content: "field ";
+        margin-right: 0.7em; 
+      } 
+      .l3-method .l3-membername::before { 
+        content: "function ";
+        margin-right: 0.7em; 
+      }
+      .l3-functionalias .l3-arguments::before,
+      .l3-method .l3-arguments::before { 
+        content: "("; 
+      }
+      .l3-functionalias .l3-arguments::after,
+      .l3-method .l3-arguments::after { 
+        content: ")"; 
+      }
+      .l3-functionalias .l3-type::before,
+      .l3-class .l3-type::before,
+      .l3-typerefspec::before { 
+        content: " : "; 
+        font-weight: normal;
+      }
+      .l3-apidoc, 
+      .l3-footer {
+        width: 100%;
+        padding: 1.0em 0 1.0em 0;
+      }
+      .l3-footer {
+        border-top: 1px solid gray;
+      } 
+      .l3-class,
+      .l3-functionalias {
+        padding: 0.4em 0 0.4em 0;
+        border-top: 1px solid gray;
+      }
+      .l3-method, 
+      .l3-field {
+        padding: 0.4em 0 0.4em 0;
+        border-top: 1px solid lightgray;
       }
     </style>
   </head>
  
   <body> 
-    <h2><span class="monospace">logic3</span> API documentation</h2>
-    <br/>
+    <h2><span class="l3-monospace">logic3</span> API documentation</h2>
 
     <h3>Summary</h3> 
-    The <span class="monospace">logic3</span> package ...  
+    <div>
+      The <span class="l3-monospace">logic3</span> package ...  
+      <br/>
+      Project homepage: <a href="https://github.com/hidega/logic3">https://github.com/hidega/logic3</a>
+    </div> 
 
-    <hr/>
+    <div class="l3-apidoc">
+      <div class="l3-class">
+        <div class="l3-classname">Logic3</div>
+        <div class="l3-summary">
+          The class of the immutable base singleton object, which can be imported e.g. via 
+          <span class="l3-monospace">Logic3 = require('logic3')</span>.
+        </div>
+        <div class="l3-field">
+          <div>
+            <span class="l3-membername">True</span>
+            <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
+          </div> 
+          <div class="l3-summary"><span class="l3-monospace">True</span> value.</div>
+        </div>
+        <div class="l3-field">
+          <div>
+            <span class="l3-membername">False</span>
+            <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
+          </div> 
+          <div class="l3-summary"><span class="l3-monospace">False</span> value.</div>
+        </div>
+        <div class="l3-field">
+          <div>
+            <span class="l3-membername">Nil</span>
+            <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
+          </div> 
+          <div class="l3-summary"><span class="l3-monospace">Nil</span> value.</div>
+        </div>
+        <div class="l3-field">
+          <div>
+            <span class="l3-membername">typename</span>
+            <span class="l3-type">String</span>
+          </div> 
+          <div class="l3-summary">The name of this class.</div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">of</span>
+            <span class="l3-arguments">Object</span>
+            <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
+          </div> 
+          <div class="l3-summary">
+            Parses the input and converts it to a <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a> instance.&nbsp;
+            <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a> instances are returned as they are. &nbsp;
+            <span class="l3-monospace">null, undefined, NaN</span> and invalid 
+            <span class="l3-monospace">Date</span> objects are converted to <span class="l3-monospace">Nil</span>.&nbsp;
+            Empty string, zero number and <span class="l3-monospace">false</span> boolean values are converted to <span class="l3-monospace">False</span>.&nbsp;
+            Other values are converted to <span class="l3-monospace">True</span>.
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">check</span>
+            <span class="l3-arguments">Object</span>
+            <span class="l3-type">Boolean</span>
+          </div> 
+          <div class="l3-summary">
+            Returns <span class="l3-monospace">true</span> when the input is an instance of 
+            <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a>, 
+            otherwise <span class="l3-monospace">false</span>.
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">test</span>
+            <span class="l3-arguments">Object</span>
+            <a class="l3-typerefspec" href="#l3-reflogic3test">Logic3Test</a>
+          </div> 
+          <div class="l3-summary">
+            Provides a fluent interface to test if the input object is a valid 
+            <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a> instance. For example: <br/><br/>
+            <span class="l3-monospace">Logic3.test(someObject).ok(() => console.log('Passed')).fail(() => { throw 'Did not pass' })</span>
+          </div>
+        </div>
+      </div> 
+      <div class="l3-class" id="l3-reflogic3value">
+        <div class="l3-classname">Logic3Value</div>
+        <div class="l3-summary">
+          Immutable class that represents a logical value among <span class="l3-monospace">True, False and Nil</span>.&nbsp;
+        </div>
+        <div class="l3-field">
+          <div>
+            <span class="l3-membername">typename</span>
+            <span class="l3-type">String</span>
+          </div> 
+          <div class="l3-summary">The name of this class.</div>
+        </div>
+      </div>
+      <div class="l3-functionalias">
+        <div>
+          <span class="l3-membername">MonoFunction</span>
+          <span class="l3-foralias">function</span>
+          <span class="l3-arguments">Object</span>
+          <span class="l3-type">Object</span>
+        </div> 
+        <div class="l3-summary">Alias for a function that accepts one parameter and may return an object.</div>
+      </div>
+      <div class="l3-functionalias">
+        <div>
+          <span class="l3-membername">BiFunction</span>
+          <span class="l3-foralias">function</span>
+          <span class="l3-arguments">Object, Object</span>
+          <span class="l3-type">Object</span>
+        </div> 
+        <div class="l3-summary">Alias for a function that accepts two parameters and may return an object.</div>
+      </div>
+    </div>
 
-    <h3 class="monospace">Logic3</h3> 
-    <h4>True</h4> 
-    a b dkjadf sdlkj sdfl sdflkj sdfkj 
-
-    <hr/>
-
-    <h3 class="monospace">Logic3Value</h3> 
-    <p>
-    </p>
-
-    <hr/>
-
-    <p>
+    <div class="l3-footer">
       <i>2021-01-03</i>
-    </p>
+    </div>
   </body>
 </html>
 

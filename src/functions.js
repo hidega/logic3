@@ -21,7 +21,7 @@ Functions.resolveResult3 = (f, l3, extras) => Functions.isFunction(f) ? f(l3, ex
 
 Functions.resolveResult2 = (f, extras) => Functions.isFunction(f) ? f(extras) : f
 
-Functions.ValOtw = function(result, mappedResult, l3, other) {
+Functions.ValOtw = function(result, mappedResult, l3, other, typename) {
   var functions = new Functions({
     value: () => mappedResult,
     otherwise: f => result ? mappedResult : Functions.resolveResult3(f, l3, other)
@@ -30,6 +30,8 @@ Functions.ValOtw = function(result, mappedResult, l3, other) {
   this.value = f => Functions.invokeFunction(functions, f, 'value')
 
   this.otherwise = f => Functions.invokeFunction(functions, f, 'otherwise')
+
+  this.typename = typename
 }
 
 Functions.ValOtw.newInstance = (...params) => Object.freeze(new Functions.ValOtw(...params))

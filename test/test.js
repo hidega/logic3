@@ -245,7 +245,7 @@ var caseCalculateDivide = () => {
 var caseEqualityFluent = () => {
   var whenEquals = values.True.whenEquals(values.False)
   assert(typeof whenEquals === 'object')
-  assert(Object.keys(whenEquals).length === 2)
+  assert(Object.keys(whenEquals).length === 3)
   assert(typeof whenEquals.then === 'function')
   assert(typeof whenEquals.thenValueOf === 'function')
 
@@ -294,7 +294,7 @@ var caseEqualityFluent = () => {
 
   var then = values.True.whenEquals(values.False).then(() => {})
   assert(typeof then === 'object')
-  assert(Object.keys(then).length === 2)
+  assert(Object.keys(then).length === 3)
   assert(typeof then.value === 'function')
   assert(typeof then.otherwise === 'function')
 
@@ -401,7 +401,7 @@ var caseEqualityFluent = () => {
 var caseInequalityFluent = () => {
   var whenNotEquals = values.True.whenNotEquals(values.False)
   assert(typeof whenNotEquals === 'object')
-  assert(Object.keys(whenNotEquals).length === 2)
+  assert(Object.keys(whenNotEquals).length === 3)
   assert(typeof whenNotEquals.then === 'function')
   assert(typeof whenNotEquals.thenValueOf === 'function')
 
@@ -451,7 +451,7 @@ var caseInequalityFluent = () => {
 
   var then = values.True.whenNotEquals(values.False).then(() => {})
   assert(typeof then === 'object')
-  assert(Object.keys(then).length === 2)
+  assert(Object.keys(then).length === 3)
   assert(typeof then.value === 'function')
   assert(typeof then.otherwise === 'function')
 
@@ -736,12 +736,26 @@ var caseEvaluateFluent = () => {
     return retval
   }
 
-  var intResult = L3.evaluate(null).whenNotFalseThen(assertParams(values.Nil, null, 5))
-  assert.equal(intResult, 5)
-  intResult = L3.evaluate(15).whenNotFalseThen(assertParams(values.True, 15, 5))
-  assert.equal(intResult, 5)
-  intResult = L3.evaluate(0).whenNotNil(assertParams(values.False, 0, 5)).value()
-  assert.equal(intResult, 5)
+  var result = L3.evaluate(null).whenNotFalseThen(assertParams(values.Nil, null, 5))
+  assert.equal(result, 5)
+  result = L3.evaluate(15).whenNotFalseThen(assertParams(values.True, 15, 5))
+  assert.equal(result, 5)
+  result = L3.evaluate(0).whenNotNil(assertParams(values.False, 0, 5)).value()
+  assert.equal(result, 5)
+  result = L3.evaluate(someObject).whenNil(assert.fail).whenFalse(assert.fail).whenTrue(assertParams(values.True, someObject, ''))
+  assert.equal(result, '')
+  result = L3.evaluate(someObject).whenNil(assert.fail).whenFalse(assert.fail).otherwise(assertParams(values.True, someObject, true))
+  assert.equal(result, true)
+  result = L3.evaluate(5).whenFalse(assert.fail).whenNil(assert.fail).whenTrue(assertParams(values.True, 5, ''))
+  assert.equal(result, '')
+  result = L3.evaluate(5).whenTrue(assertParams(values.True, 5, '')).whenFalse(assert.fail).whenNil(assert.fail)
+  assert.equal(result, '')
+  result = L3.evaluate(5).whenNil(assert.fail).whenTrue(assertParams(values.True, 5, '')).whenFalse(assert.fail)
+  assert.equal(result, '')
+  result = L3.evaluate(5).whenNil(assert.fail).whenTrue(assertParams(values.True, 5, '')).value()
+  assert.equal(result, '')
+  result = L3.evaluate(5).whenNil(assert.fail).otherwise(assertParams(values.True, 5, ''))
+  assert.equal(result, '')
 }
 
 var caseWhenIs = () => {
@@ -761,12 +775,12 @@ var caseWhenIs = () => {
   var checkFluentWhen = whens => whens.forEach(w => {
     var checkWhen = v => {
       assert(typeof v === 'object')
-      assert.equal(Object.keys(v).length, 6)
+      assert.equal(Object.keys(v).length, 7)
     }
 
     var checkWhenL2 = (v, p) => {
       assert(typeof v === 'object')
-      assert.equal(Object.keys(v).length, 3)
+      assert.equal(Object.keys(v).length, 4)
       assert(v.value && v.otherwise && v[p])
     }
 
@@ -1018,7 +1032,7 @@ var caseValuesTest = () => {
   assert.throws(() => values.test(values.Nil).ok(undefined).fail(assert.fail))
 
   var invocationCount = 0
-  assert.equal(2, Object.keys(values.test(values.Nil)).length)
+  assert.equal(3, Object.keys(values.test(values.Nil)).length)
 
   values.test(values.Nil).ok(() => invocationCount++)
   values.test(values.Nil).fail(assert.fail)
