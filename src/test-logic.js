@@ -9,15 +9,13 @@ var checkFunction = f => {
 
 module.exports = (result, obj) => Object.freeze({
   fail: f => {
-    checkFunction(f)
-    result || f(obj)
+    checkFunction(f) && (result || f(obj))
     return Object.freeze({
       ok: f => checkFunction(f) && result && f(obj)
     })
   },
   ok: f => {
-    checkFunction(f)
-    result && f(obj)
+    checkFunction(f) && result && f(obj)
     return Object.freeze({
       fail: f => checkFunction(f) && (result || f(obj))
     })
