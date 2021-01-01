@@ -1010,6 +1010,13 @@ var caseWhenNot = () => {
 }
 
 var caseValuesTest = () => {
+  assert.throws(() => values.test(values.Nil).fail(assert.fail).ok(5))
+  assert.throws(() => values.test(values.Nil).fail({}).ok(() => {}))
+  assert.throws(() => values.test(values.Nil).ok([]))
+  assert.throws(() => values.test(values.Nil).fail(null))
+  assert.throws(() => values.test(values.Nil).ok(() => {}).fail(true))
+  assert.throws(() => values.test(values.Nil).ok(undefined).fail(assert.fail))
+
   var invocationCount = 0
   assert.equal(2, Object.keys(values.test(values.Nil)).length)
 
