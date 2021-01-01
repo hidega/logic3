@@ -16,12 +16,12 @@ Examples
 ```js
 var Logic3 = require('..')                            // the Logic3 singleton
                                                       //
-                                                      // there are 3 logical types
+                                                      // three basic instances of Logic3Val  
 console.log(Logic3.True.toString())                   // True
 console.log(Logic3.False.toString())                  // False
 console.log(Logic3.Nil.toString())                    // Nil
  
-                                                      // check whether an object is a Logic3 type instance
+                                                      // check if an object of Logic3Val type
 console.log(Logic3.check(Logic3.True))                // true
 console.log(Logic3.check({ foo: 1 }))                 // false
 
@@ -31,7 +31,7 @@ console.log(Logic3.True.equals(Logic3.True))          // true
 console.log(Logic3.True.isTrue())                     // true
 console.log(Logic3.True.isNil())                      // false
 
-                                                      // operations on the three-valued logical type
+                                                      // operations on the Logic3Val type
 console.log(Logic3.Nil.or(Logic3.True).toString())    // True
 console.log(Logic3.False.and(Logic3.True).toString()) // False
 
