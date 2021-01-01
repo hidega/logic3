@@ -6,6 +6,8 @@ var valuesOther = require('../src/values')
 var evaluate = require('../src/evaluate')
 var Operations = require('../src/operations')
 var L3 = require('..')
+var L3_1 = require('./m1')
+var L3_2 = require('./m2')
 
 var T = 1
 var F = 2
@@ -520,13 +522,14 @@ var caseInequalityFluent = () => {
   assert.equal(21, invocationCount)
 }
 
-var caseComplexFluent = () => {}
-
-var caseApiSmoketest = () => {}
-
 var caseMultiApiInstance = () => {
   assert(values.True.equals(valuesOther.True))
   assert(values.True.notEquals(valuesOther.False))
+  assert(L3.True.equals(valuesOther.True))
+  assert(L3.True.notEquals(valuesOther.False))
+  assert(L3_1.True.equals(L3_2.True))
+  assert(L3_1.True.notEquals(L3.False))
+  assert(L3_2.True.equals(L3.True))
 }
 
 var caseEvaluate = () => {
@@ -1059,9 +1062,7 @@ caseEqualityFluent()
 caseInequalityFluent()
 caseEvaluate()
 caseEvaluateFluent()
-caseComplexFluent()
 caseTamperProofness()
-caseApiSmoketest()
 caseMultiApiInstance()
 caseWithObject()
 
