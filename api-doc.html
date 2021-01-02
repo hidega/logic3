@@ -64,7 +64,7 @@
       .l3-class > .l3-classname,
       .l3-alias .l3-membername, 
       .l3-functionalias .l3-membername {
-        font-size: 1.0em;
+        font-size: 1.1em;
         padding-bottom: 0.4em;
         color: navy;
       }
@@ -147,7 +147,7 @@
       truth values: <span class="l3-monospace">True, False, Nil</span>.&nbsp; These values ar represented by a class named  
       <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a>.&nbsp; The truth values also form a finite
       field of order 3, see notes <a href="#l3-refnotesgf3">here</a>.&nbsp; The API provides a fluent interface to create, access and 
-      test the truth values. 
+      test the truth values.&nbsp; All objects in the API are immutable.
       <br/>
       Project homepage: <a href="https://github.com/hidega/logic3">https://github.com/hidega/logic3</a>
     </div> 
@@ -248,12 +248,13 @@
             <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
           </div> 
           <div class="l3-summary">
-            Performs AND operation on this object and the parameter object.&nbsp; The truth table of this commutative operation:<br/><br/>
-              <span class="l3-pre">       | True   False  Nil    </span><br/>
-              <span class="l3-pre"> ------+--------------------  </span><br/>
-              <span class="l3-pre"> True  | True   False  Nil    </span><br/>
-              <span class="l3-pre"> False | False  False  Nil    </span><br/>
-              <span class="l3-pre"> Nil   | Nil    Nil    Nil    </span> 
+            Performs AND operation on this object and the parameter object.&nbsp; 
+            The truth table of this commutative operation:<br/><br/>
+            <span class="l3-pre">       | True   False  Nil    </span><br/>
+            <span class="l3-pre"> ------+--------------------  </span><br/>
+            <span class="l3-pre"> True  | True   False  Nil    </span><br/>
+            <span class="l3-pre"> False | False  False  Nil    </span><br/>
+            <span class="l3-pre"> Nil   | Nil    Nil    Nil    </span> 
           </div>
         </div>
         <div class="l3-method">
@@ -263,12 +264,13 @@
             <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
           </div> 
           <div class="l3-summary">
-            Performs OR operation on this object and the parameter object.&nbsp; The truth table of this commutative operation:<br/><br/>
-              <span class="l3-pre">       | True   False  Nil    </span><br/>
-              <span class="l3-pre"> ------+--------------------  </span><br/>
-              <span class="l3-pre"> True  | True   True   True   </span><br/>
-              <span class="l3-pre"> False | True   False  False  </span><br/>
-              <span class="l3-pre"> Nil   | True   False  Nil    </span> 
+            Performs OR operation on this object and the parameter object.&nbsp; 
+            The truth table of this commutative operation:<br/><br/>
+            <span class="l3-pre">       | True   False  Nil    </span><br/>
+            <span class="l3-pre"> ------+--------------------  </span><br/>
+            <span class="l3-pre"> True  | True   True   True   </span><br/>
+            <span class="l3-pre"> False | True   False  False  </span><br/>
+            <span class="l3-pre"> Nil   | True   False  Nil    </span> 
           </div>
         </div>        
         <div class="l3-method">
@@ -290,13 +292,14 @@
             <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
           </div> 
           <div class="l3-summary">
-            Performs XOR operation on this object and the parameter object, in accordance with the difinition:&nbsp;
-            <b>A</b> XOR <b>B</b> :== (<b>A</b> OR <b>B</b>) AND NOT(<b>A</b> AND <b>B</b>) &nbsp;. The truth table of this commutative operation:<br/><br/>
-              <span class="l3-pre">       | True   False  Nil    </span><br/>
-              <span class="l3-pre"> ------+--------------------  </span><br/>
-              <span class="l3-pre"> True  | False  True   Nil    </span><br/>
-              <span class="l3-pre"> False | True   False  Nil    </span><br/>
-              <span class="l3-pre"> Nil   | Nil    Nil    Nil    </span> 
+            Performs XOR operation on this object and the parameter object, in accordance with the definition:&nbsp;
+            <b>A</b> XOR <b>B</b> :== (<b>A</b> OR <b>B</b>) AND NOT(<b>A</b> AND <b>B</b>) &nbsp;. 
+            The truth table of this commutative operation:<br/><br/>
+            <span class="l3-pre">       | True   False  Nil    </span><br/>
+            <span class="l3-pre"> ------+--------------------  </span><br/>
+            <span class="l3-pre"> True  | False  True   Nil    </span><br/>
+            <span class="l3-pre"> False | True   False  Nil    </span><br/>
+            <span class="l3-pre"> Nil   | Nil    Nil    Nil    </span> 
           </div>
         </div>     
         <div class="l3-method">
@@ -306,14 +309,14 @@
             <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
           </div> 
           <div class="l3-summary">
-            Performs implication on this object and the parameter object, in accordance with the difinition:&nbsp;
-            <b>A</b> IMPL <b>B</b> :== NOT(<b>A</b>) OR <b>B</b> &nbsp;. The truth table of this non-commutative operation:<br/><br/>
-              <span class="l3-pre">       | True   False  Nil    </span><br/>
-              <span class="l3-pre"> ------+--------------------  </span><br/>
-              <span class="l3-pre"> True  | True   False  False  </span><br/>
-              <span class="l3-pre"> False | True   True   True    </span><br/>
-              <span class="l3-pre"> Nil   | True   False  Nil    </span>       (where the leftmost column represents this object)
-
+            Performs implication on this object and the parameter object, in accordance with the definition:&nbsp;
+            <b>A</b> IMPL <b>B</b> :== NOT(<b>A</b>) OR <b>B</b> &nbsp;. 
+            The truth table of this non-commutative operation:<br/><br/>
+            <span class="l3-pre">       | True   False  Nil    </span><br/>
+            <span class="l3-pre"> ------+--------------------  </span><br/>
+            <span class="l3-pre"> True  | True   False  False  </span><br/>
+            <span class="l3-pre"> False | True   True   True    </span><br/>
+            <span class="l3-pre"> Nil   | True   False  Nil    </span>       (where the leftmost column represents this object)
           </div>
         </div>  
         <div class="l3-method">
@@ -326,11 +329,11 @@
             Performs addition on this object and the parameter object.&nbsp; 
             See the <a href="#l3-refnotesgf3">notes</a> on GF(3) operations.&nbsp; 
             The truth table of this commutative operation:<br/><br/>
-              <span class="l3-pre">       | True   False  Nil    </span><br/>
-              <span class="l3-pre"> ------+--------------------  </span><br/>
-              <span class="l3-pre"> True  | False  Nil    True   </span><br/>
-              <span class="l3-pre"> False | Nil    True   False  </span><br/>
-              <span class="l3-pre"> Nil   | True   False  Nil    </span>
+            <span class="l3-pre">       | True   False  Nil    </span><br/>
+            <span class="l3-pre"> ------+--------------------  </span><br/>
+            <span class="l3-pre"> True  | False  Nil    True   </span><br/>
+            <span class="l3-pre"> False | Nil    True   False  </span><br/>
+            <span class="l3-pre"> Nil   | True   False  Nil    </span>
           </div>
         </div>
         <div class="l3-method">
@@ -343,11 +346,11 @@
             Performs subtraction on this object and the parameter object.&nbsp; 
             See the <a href="#l3-refnotesgf3">notes</a> on GF(3) operations.&nbsp; 
             The truth table of this commutative operation:<br/><br/>
-              <span class="l3-pre">       | True   False  Nil    </span><br/>
-              <span class="l3-pre"> ------+--------------------  </span><br/>
-              <span class="l3-pre"> True  | Nil    False  True   </span><br/>
-              <span class="l3-pre"> False | False  Nil    False  </span><br/>
-              <span class="l3-pre"> Nil   | True   False  Nil    </span> 
+            <span class="l3-pre">       | True   False  Nil    </span><br/>
+            <span class="l3-pre"> ------+--------------------  </span><br/>
+            <span class="l3-pre"> True  | Nil    False  True   </span><br/>
+            <span class="l3-pre"> False | False  Nil    False  </span><br/>
+            <span class="l3-pre"> Nil   | True   False  Nil    </span> 
           </div>
         </div>
         <div class="l3-method">
@@ -360,11 +363,11 @@
             Performs multiplication on this object and the parameter object.&nbsp; 
             See the <a href="#l3-refnotesgf3">notes</a> on GF(3) operations.&nbsp; 
             The truth table of this commutative operation:<br/><br/>
-              <span class="l3-pre">       | True   False  Nil    </span><br/>
-              <span class="l3-pre"> ------+--------------------  </span><br/>
-              <span class="l3-pre"> True  | True   False  Nil    </span><br/>
-              <span class="l3-pre"> False | False  True   Nil    </span><br/>
-              <span class="l3-pre"> Nil   | Nil    Nil    Nil    </span> 
+            <span class="l3-pre">       | True   False  Nil    </span><br/>
+            <span class="l3-pre"> ------+--------------------  </span><br/>
+            <span class="l3-pre"> True  | True   False  Nil    </span><br/>
+            <span class="l3-pre"> False | False  True   Nil    </span><br/>
+            <span class="l3-pre"> Nil   | Nil    Nil    Nil    </span> 
           </div>
         </div>
         <div class="l3-method">
@@ -378,18 +381,23 @@
             If the parameter is <span class="l3-monospace">Nil</span>, an error is thrown.&nbsp; 
             See the <a href="#l3-refnotesgf3">notes</a> on GF(3) operations.&nbsp; 
             The truth table of this non-commutative operation:<br/><br/>
-              <span class="l3-pre">       | True   False  Nil    </span><br/>
-              <span class="l3-pre"> ------+--------------------  </span><br/>
-              <span class="l3-pre"> True  | True   False  -      </span><br/>
-              <span class="l3-pre"> False | False  True   -      </span><br/>
-              <span class="l3-pre"> Nil   | Nil    Nil    -      </span> 
+            <span class="l3-pre">       | True   False  Nil    </span><br/>
+            <span class="l3-pre"> ------+--------------------  </span><br/>
+            <span class="l3-pre"> True  | True   False  -      </span><br/>
+            <span class="l3-pre"> False | False  True   -      </span><br/>
+            <span class="l3-pre"> Nil   | Nil    Nil    -      </span> 
           </div>
         </div>
       </div>
       <div class="l3-class" id="l3-reflogic3assertions">
         <div class="l3-classname">Assertions</div>
         <div class="l3-summary">
-          This class provides methods that support asserting conditions in tests. 
+          This class provides methods that support asserting conditions in tests. &nbsp;
+          The assertion methods return <span class="l3-monospace">true</span> on success, enabling assertions
+          to be concatenated by &nbsp;&& in a single expression, such as:<br/><br/>
+          <span class="l3-monospace">
+            var check = () => Logic3.assertions.assertTrue(varA) && Logic3.assertions.assertNotTrue(varB) && Logic3.assertions.assertEqual(varC, varD) ...
+          </span> 
         </div>
         <div class="l3-field">
           <div>
@@ -397,6 +405,123 @@
             <span class="l3-type">String</span>
           </div> 
           <div class="l3-summary">The name of this class.</div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">fail</span>
+            <span class="l3-arguments">String</span>
+          </div> 
+          <div class="l3-summary">Throws an exception with the error message in the parameter (if any).</div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">assertLogic3</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a></span>
+            <span class="l3-type">Boolean</span>
+          </div> 
+          <div class="l3-summary">
+            If the parameter is a <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a> instance
+            then returns <span class="l3-monospace">true</span>, otherwise throws an exception.
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">assertNotLogic3</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a></span>
+            <span class="l3-type">Boolean</span>
+          </div> 
+          <div class="l3-summary">
+            If the parameter is not a <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a> instance
+            then returns <span class="l3-monospace">true</span>, otherwise throws an exception.
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">assertTrue</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a></span>
+            <span class="l3-type">Boolean</span>
+          </div> 
+          <div class="l3-summary">
+            If the parameter is <span class="l3-monospace">True</span> then returns <span class="l3-monospace">true</span>, 
+            otherwise throws an exception.
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">assertNotTrue</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a></span>
+            <span class="l3-type">Boolean</span>
+          </div> 
+          <div class="l3-summary">
+            If the parameter is <span class="l3-monospace">Nil</span> or <span class="l3-monospace">False</span> 
+            then returns <span class="l3-monospace">true</span>, otherwise throws an exception.
+          </div>
+        </div>        
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">assertFalse</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a></span>
+            <span class="l3-type">Boolean</span>
+          </div> 
+          <div class="l3-summary">
+            If the parameter is <span class="l3-monospace">False</span> then returns <span class="l3-monospace">true</span>, 
+            otherwise throws an exception.
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">assertNotFalse</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a></span>
+            <span class="l3-type">Boolean</span>
+          </div> 
+          <div class="l3-summary">
+            If the parameter is <span class="l3-monospace">Nil</span> or <span class="l3-monospace">True</span> 
+            then returns <span class="l3-monospace">true</span>, otherwise throws an exception.
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">assertNil</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a></span>
+            <span class="l3-type">Boolean</span>
+          </div> 
+          <div class="l3-summary">
+            If the parameter is <span class="l3-monospace">Nil</span> then returns <span class="l3-monospace">true</span>, 
+            otherwise throws an exception.
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">assertNotNil</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a></span>
+            <span class="l3-type">Boolean</span>
+          </div> 
+          <div class="l3-summary">
+            If the parameter is <span class="l3-monospace">False</span> or <span class="l3-monospace">True</span> 
+            then returns <span class="l3-monospace">true</span>, otherwise throws an exception.
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">assertEqual</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a>, <a class="l3-typeref" href="#l3-refanything">Anything</a></span>
+            <span class="l3-type">Boolean</span>
+          </div>
+          <div class="l3-summary">
+            If both parameters are <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a> instances and they are equal
+            then returns <span class="l3-monospace">true</span>, otherwise throws an exception.
+          </div> 
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">assertNotEqual</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a>, <a class="l3-typeref" href="#l3-refanything">Anything</a></span>
+            <span class="l3-type">Boolean</span>
+          </div>
+          <div class="l3-summary">
+            If both parameters are <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a> instances and they are not equal
+            then returns <span class="l3-monospace">true</span>, otherwise throws an exception.
+          </div> 
         </div>
       </div>
       <div class="l3-class" id="l3-reflogic3test">
