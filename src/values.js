@@ -31,6 +31,7 @@ Logic3Value.instances[Constants.nilInt.toString()] = Logic3Value.newInstance(Con
 
 var values = {
   check: Logic3Value.checkLogic3,
+  filter: obj => Logic3Value.checkLogic3(obj) ? obj : undefined,
   test: obj => test(Logic3Value.checkLogic3(obj), obj),
   True: Logic3Value.ofInteger(Constants.trueInt),
   False: Logic3Value.ofInteger(Constants.falseInt),

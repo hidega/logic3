@@ -10,6 +10,7 @@ module.exports = {
   withObject: (l3, obj) => values.valueWithExtras(l3, obj),
   evaluate: subject => values.valueWithExtras(evaluate(subject), subject),
   of: evaluate,
+  filter: values.filter,
   test: values.test,
   check: values.check,
   True: values.True,

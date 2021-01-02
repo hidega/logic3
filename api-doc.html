@@ -144,10 +144,10 @@
     <h3>Summary</h3> 
     <div class="l3-generalparagraph">
       The <span class="l3-monospace">logic3</span> package provides a simple three-valued logic system with three 
-      truth values: <span class="l3-monospace">True, False, Nil</span>.&nbsp; These values ar represented by a class named  
-      <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a>.&nbsp; The truth values also form a finite
-      field of order 3, see notes <a href="#l3-refnotesgf3">here</a>.&nbsp; The API provides a fluent interface to create, access and 
-      test the truth values.&nbsp; All objects in the API are immutable.
+      truth values: <span class="l3-monospace">True, False, Nil</span>.&nbsp; These values are represented by a class named  
+      <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a>.&nbsp; For the algerbaic properties of the structure consisting of 
+      the three truth values and the corresponding operations see the notes <a href="#l3-refnotesgf3">here</a>.&nbsp; The API provides 
+       a fluent interface to create, access and test the truth values.&nbsp; All objects in the API are immutable.
       <br/>
       Project homepage: <a href="https://github.com/hidega/logic3">https://github.com/hidega/logic3</a>
     </div> 
@@ -243,6 +243,72 @@
         </div>
         <div class="l3-method">
           <div>
+            <span class="l3-membername">isTrue</span>
+            <span class="l3-monospace">()</span>
+            <span class="l3-type">Boolean</span>
+          </div>
+          <div class="l3-summary">
+            If this instance represents <span class="l3-monospace">True</span> 
+            then returns <span class="l3-monospace">true</span>, otherwise <span class="l3-monospace">false</span>.
+          </div> 
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">isNotTrue</span>
+            <span class="l3-monospace">()</span>
+            <span class="l3-type">Boolean</span>
+          </div>
+          <div class="l3-summary">
+            If this instance represents <span class="l3-monospace">True</span> 
+            then returns <span class="l3-monospace">false</span>, otherwise <span class="l3-monospace">true</span>.
+          </div> 
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">isFalse</span>
+            <span class="l3-monospace">()</span>
+            <span class="l3-type">Boolean</span>
+          </div>
+          <div class="l3-summary">
+            If this instance represents <span class="l3-monospace">False</span> 
+            then returns <span class="l3-monospace">true</span>, otherwise <span class="l3-monospace">false</span>.
+          </div> 
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">isNotFalse</span>
+            <span class="l3-monospace">()</span>
+            <span class="l3-type">Boolean</span>
+          </div>
+          <div class="l3-summary">
+            If this instance represents <span class="l3-monospace">False</span> 
+            then returns <span class="l3-monospace">false</span>, otherwise <span class="l3-monospace">true</span>.
+          </div> 
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">isNil</span>
+            <span class="l3-monospace">()</span>
+            <span class="l3-type">Boolean</span>
+          </div>
+          <div class="l3-summary">
+            If this instance represents <span class="l3-monospace">Nil</span> 
+            then returns <span class="l3-monospace">true</span>, otherwise <span class="l3-monospace">false</span>.
+          </div> 
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">isNotNil</span>
+            <span class="l3-monospace">()</span>
+            <span class="l3-type">Boolean</span>
+          </div>
+          <div class="l3-summary">
+            If this instance represents <span class="l3-monospace">Nil</span> 
+            then returns <span class="l3-monospace">false</span>, otherwise <span class="l3-monospace">true</span>.
+          </div> 
+        </div>
+        <div class="l3-method">
+          <div>
             <span class="l3-membername">and</span>
             <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a></span>
             <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
@@ -293,7 +359,7 @@
           </div> 
           <div class="l3-summary">
             Performs XOR operation on this object and the parameter object, in accordance with the definition:&nbsp;
-            <b>A</b> XOR <b>B</b> :== (<b>A</b> OR <b>B</b>) AND NOT(<b>A</b> AND <b>B</b>) &nbsp;. 
+            <b>A</b> XOR <b>B</b> :== (<b>A</b> &or; <b>B</b>) &and; &not;(<b>A</b> &and; <b>B</b>) &nbsp;. 
             The truth table of this commutative operation:<br/><br/>
             <span class="l3-pre">       | True   False  Nil    </span><br/>
             <span class="l3-pre"> ------+--------------------  </span><br/>
@@ -310,7 +376,7 @@
           </div> 
           <div class="l3-summary">
             Performs implication on this object and the parameter object, in accordance with the definition:&nbsp;
-            <b>A</b> IMPL <b>B</b> :== NOT(<b>A</b>) OR <b>B</b> &nbsp;. 
+            <b>A</b> IMPLY <b>B</b> :== &not;<b>A</b> &or; <b>B</b> &nbsp;. 
             The truth table of this non-commutative operation:<br/><br/>
             <span class="l3-pre">       | True   False  Nil    </span><br/>
             <span class="l3-pre"> ------+--------------------  </span><br/>
@@ -563,7 +629,9 @@
         <div>
           <span class="l3-membername">Anything</span>
         </div> 
-        <div class="l3-summary">Alias for a primitive value or a function or a Javascript <span class="l3-monospace">Object</span> instance (or anything).</div>
+        <div class="l3-summary">
+          Alias for a primitive value or a function or a Javascript <span class="l3-monospace">Object</span> instance (or anything).
+        </div>
       </div>
       <div class="l3-functionalias" id="l3-refmonoconsumer">
         <div>
@@ -594,10 +662,10 @@
       </div>
     </div>
 
-    <h3>Three-valued logic and GF(3)</h3> 
+    <h3>Algebraic properties of <span class="l3-monospace">L3</span></h3> 
     <div class="l3-generalparagraph" id="l3-refnotesgf3">
-      The truth values and the four operations form a finite field named <span class="l3-monospace">L3</span> of order 3: &nbsp;
-      <span class="l3-monospace">L3 := ({ True, False, Nil }, +, -, &middot;, &divide;)</span>. &nbsp;
+      The truth values and the four operations (addition, subtraction, multiplication and division) form a finite field of order 3: &nbsp;
+      <span class="l3-monospace">F := ({ True, False, Nil }, +, -, &middot;, &divide;)</span>. &nbsp;
       <span class="l3-monospace">True</span> represents the multiplicative identity of the field, 
       <span class="l3-monospace">Nil</span> represents the additive identity of the field and 
       <span class="l3-monospace">False</span> represents the additive inverese of <span class="l3-monospace">True</span>. 
@@ -606,7 +674,7 @@
     <br/>
 
     <div class="l3-footer">
-      <i>2021-01-11</i>
+      <i>2021 - 01 - 11</i>
     </div>
   </body>
 </html>
