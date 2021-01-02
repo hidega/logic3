@@ -7,18 +7,22 @@
       * {
         font-family: Arial, Helvetica, sans-serif;
         line-height: 140%;
+        font-size: 14px;
       }
       a {
         text-decoration: none;
-        color: navy;
-      }
-      div {
-        font-size: 14px;
+        color: darkred;
       }
       h2 {
-        font-size: 20px;
+        font-size: 1.5em;
       }
-      h3, 
+      h3 {
+        font-size: 1.2em;
+      }
+      .l3-pre {
+        white-space: pre;
+      }
+      .l3-pre,
       .l3-monospace, 
       .l3-method .l3-arguments,
       .l3-functionalias .l3-arguments,
@@ -28,10 +32,14 @@
       .l3-class .l3-type,
       .l3-functionalias .l3-type,
       .l3-functionalias .l3-membername,
+      .l3-alias .l3-membername,
       .l3-class .l3-membername, 
       .l3-class > .l3-classname {
         font-family: monospace, monospace;
         font-size: 0.9em;
+      }
+      .l3-method .l3-paramrefs {
+        font-family: monospace, monospace;
       }
       .l3-class .l3-membername {
         color: darkgreen;
@@ -44,20 +52,24 @@
       }
       .l3-typeref,
       .l3-class > .l3-classname,
+      .l3-alias .l3-membername, 
       .l3-functionalias .l3-membername {
         font-weight: bold;
       }
       .l3-class .l3-summary,
+      .l3-alias .l3-summary, 
       .l3-functionalias .l3-summary { 
         padding: 0.4em 0 0.7em 0;
       }
       .l3-class > .l3-classname,
+      .l3-alias .l3-membername, 
       .l3-functionalias .l3-membername {
         font-size: 1.0em;
         padding-bottom: 0.4em;
         color: navy;
       }
       .l3-functionalias .l3-membername::before,
+      .l3-alias .l3-membername::before,
       .l3-class .l3-membername::before,
       .l3-functionalias .l3-foralias::before,
       .l3-class > .l3-classname::before { 
@@ -72,6 +84,7 @@
         font-size: 0.7em;
         content: "class   "; 
       }
+      .l3-alias .l3-membername::before,
       .l3-functionalias .l3-membername::before {
         font-size: 0.7em;
         content: "alias   "; 
@@ -88,10 +101,12 @@
         margin-right: 0.7em; 
       }
       .l3-functionalias .l3-arguments::before,
-      .l3-method .l3-arguments::before { 
+      .l3-method .l3-arguments::before,
+      .l3-method .l3-paramrefs::before { 
         content: "("; 
       }
       .l3-functionalias .l3-arguments::after,
+      .l3-method .l3-paramrefs::after,
       .l3-method .l3-arguments::after { 
         content: ")"; 
       }
@@ -107,12 +122,13 @@
         padding: 1.0em 0 1.0em 0;
       }
       .l3-footer {
-        border-top: 1px solid gray;
+        border-top: 1px solid black;
       } 
       .l3-class,
+      .l3-alias,
       .l3-functionalias {
         padding: 0.4em 0 0.4em 0;
-        border-top: 1px solid gray;
+        border-top: 1px solid black;
       }
       .l3-method, 
       .l3-field {
@@ -126,8 +142,12 @@
     <h2><span class="l3-monospace">logic3</span> API documentation</h2>
 
     <h3>Summary</h3> 
-    <div>
-      The <span class="l3-monospace">logic3</span> package ...  
+    <div class="l3-generalparagraph">
+      The <span class="l3-monospace">logic3</span> package provides a simple three-valued logic system with three 
+      truth values: <span class="l3-monospace">True, False, Nil</span>.&nbsp; These values ar represented by a class named  
+      <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a>.&nbsp; The truth values also form a finite
+      field of order 3, see notes <a href="#l3-refnotesgf3">here</a>.&nbsp; The API provides a fluent interface to create, access and 
+      test the truth values. 
       <br/>
       Project homepage: <a href="https://github.com/hidega/logic3">https://github.com/hidega/logic3</a>
     </div> 
@@ -136,29 +156,30 @@
       <div class="l3-class">
         <div class="l3-classname">Logic3</div>
         <div class="l3-summary">
-          The class of the immutable base singleton object, which can be imported e.g. via 
-          <span class="l3-monospace">Logic3 = require('logic3')</span>.
+          The class of the immutable base singleton object, which can be imported e.g. via &nbsp;
+          <span class="l3-monospace">var Logic3 = require('logic3')</span>&nbsp;.&nbsp; This instance provides the basic constants
+          and methods to access, test and create truth values.
         </div>
         <div class="l3-field">
           <div>
             <span class="l3-membername">True</span>
             <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
           </div> 
-          <div class="l3-summary"><span class="l3-monospace">True</span> value.</div>
+          <div class="l3-summary">Represents the <span class="l3-monospace">True</span> value of the three-valued logic system.</div>
         </div>
         <div class="l3-field">
           <div>
             <span class="l3-membername">False</span>
             <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
           </div> 
-          <div class="l3-summary"><span class="l3-monospace">False</span> value.</div>
+          <div class="l3-summary">Represents the <span class="l3-monospace">False</span> value of the three-valued logic system.</div>
         </div>
         <div class="l3-field">
           <div>
             <span class="l3-membername">Nil</span>
             <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
           </div> 
-          <div class="l3-summary"><span class="l3-monospace">Nil</span> value.</div>
+          <div class="l3-summary">Represents the <span class="l3-monospace">Nil</span> value of the three-valued logic system.</div>
         </div>
         <div class="l3-field">
           <div>
@@ -170,22 +191,23 @@
         <div class="l3-method">
           <div>
             <span class="l3-membername">of</span>
-            <span class="l3-arguments">Object</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a></span>
             <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
           </div> 
           <div class="l3-summary">
             Parses the input and converts it to a <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a> instance.&nbsp;
             <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a> instances are returned as they are. &nbsp;
-            <span class="l3-monospace">null, undefined, NaN</span> and invalid 
-            <span class="l3-monospace">Date</span> objects are converted to <span class="l3-monospace">Nil</span>.&nbsp;
-            Empty string, zero number and <span class="l3-monospace">false</span> boolean values are converted to <span class="l3-monospace">False</span>.&nbsp;
+            <span class="l3-monospace">null, undefined, NaN</span> and invalid <span class="l3-monospace">Date</span> 
+            objects are converted to <span class="l3-monospace">Nil</span>.&nbsp;
+            Empty string, zero number and <span class="l3-monospace">false</span> 
+            boolean values are converted to <span class="l3-monospace">False</span>.&nbsp;
             Other values are converted to <span class="l3-monospace">True</span>.
           </div>
         </div>
         <div class="l3-method">
           <div>
             <span class="l3-membername">check</span>
-            <span class="l3-arguments">Object</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a></span>
             <span class="l3-type">Boolean</span>
           </div> 
           <div class="l3-summary">
@@ -197,11 +219,11 @@
         <div class="l3-method">
           <div>
             <span class="l3-membername">test</span>
-            <span class="l3-arguments">Object</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a></span>
             <a class="l3-typerefspec" href="#l3-reflogic3test">Logic3Test</a>
           </div> 
           <div class="l3-summary">
-            Provides a fluent interface to test if the input object is a valid 
+            Provides a fluent interface to test if the input is a valid 
             <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a> instance. For example: <br/><br/>
             <span class="l3-monospace">Logic3.test(someObject).ok(() => console.log('Passed')).fail(() => { throw 'Did not pass' })</span>
           </div>
@@ -219,8 +241,206 @@
           </div> 
           <div class="l3-summary">The name of this class.</div>
         </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">and</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a></span>
+            <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
+          </div> 
+          <div class="l3-summary">
+            Performs AND operation on this object and the parameter object.&nbsp; The truth table of this commutative operation:<br/><br/>
+              <span class="l3-pre">       | True   False  Nil    </span><br/>
+              <span class="l3-pre"> ------+--------------------  </span><br/>
+              <span class="l3-pre"> True  | True   False  Nil    </span><br/>
+              <span class="l3-pre"> False | False  False  Nil    </span><br/>
+              <span class="l3-pre"> Nil   | Nil    Nil    Nil    </span> 
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">or</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a></span>
+            <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
+          </div> 
+          <div class="l3-summary">
+            Performs OR operation on this object and the parameter object.&nbsp; The truth table of this commutative operation:<br/><br/>
+              <span class="l3-pre">       | True   False  Nil    </span><br/>
+              <span class="l3-pre"> ------+--------------------  </span><br/>
+              <span class="l3-pre"> True  | True   True   True   </span><br/>
+              <span class="l3-pre"> False | True   False  False  </span><br/>
+              <span class="l3-pre"> Nil   | True   False  Nil    </span> 
+          </div>
+        </div>        
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">negate</span>
+            <span class="l3-monospace">()</span>
+            <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
+          </div> 
+          <div class="l3-summary">
+            If this object is <span class="l3-monospace">True</span> then returns <span class="l3-monospace">False</span>,&nbsp; 
+            if this object is <span class="l3-monospace">False</span> then returns <span class="l3-monospace">True</span>,&nbsp; 
+            otherwise returns <span class="l3-monospace">Nil</span>.
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">xor</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a></span>
+            <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
+          </div> 
+          <div class="l3-summary">
+            Performs XOR operation on this object and the parameter object, in accordance with the difinition:&nbsp;
+            <b>A</b> XOR <b>B</b> :== (<b>A</b> OR <b>B</b>) AND NOT(<b>A</b> AND <b>B</b>) &nbsp;. The truth table of this commutative operation:<br/><br/>
+              <span class="l3-pre">       | True   False  Nil    </span><br/>
+              <span class="l3-pre"> ------+--------------------  </span><br/>
+              <span class="l3-pre"> True  | False  True   Nil    </span><br/>
+              <span class="l3-pre"> False | True   False  Nil    </span><br/>
+              <span class="l3-pre"> Nil   | Nil    Nil    Nil    </span> 
+          </div>
+        </div>     
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">imply</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a></span>
+            <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
+          </div> 
+          <div class="l3-summary">
+            Performs implication on this object and the parameter object, in accordance with the difinition:&nbsp;
+            <b>A</b> IMPL <b>B</b> :== NOT(<b>A</b>) OR <b>B</b> &nbsp;. The truth table of this non-commutative operation:<br/><br/>
+              <span class="l3-pre">       | True   False  Nil    </span><br/>
+              <span class="l3-pre"> ------+--------------------  </span><br/>
+              <span class="l3-pre"> True  | True   False  False  </span><br/>
+              <span class="l3-pre"> False | True   True   True    </span><br/>
+              <span class="l3-pre"> Nil   | True   False  Nil    </span>       (where the leftmost column represents this object)
+
+          </div>
+        </div>  
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">add</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a></span>
+            <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
+          </div> 
+          <div class="l3-summary">
+            Performs addition on this object and the parameter object.&nbsp; 
+            See the <a href="#l3-refnotesgf3">notes</a> on GF(3) operations.&nbsp; 
+            The truth table of this commutative operation:<br/><br/>
+              <span class="l3-pre">       | True   False  Nil    </span><br/>
+              <span class="l3-pre"> ------+--------------------  </span><br/>
+              <span class="l3-pre"> True  | False  Nil    True   </span><br/>
+              <span class="l3-pre"> False | Nil    True   False  </span><br/>
+              <span class="l3-pre"> Nil   | True   False  Nil    </span>
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">subtract</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a></span>
+            <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
+          </div> 
+          <div class="l3-summary">
+            Performs subtraction on this object and the parameter object.&nbsp; 
+            See the <a href="#l3-refnotesgf3">notes</a> on GF(3) operations.&nbsp; 
+            The truth table of this commutative operation:<br/><br/>
+              <span class="l3-pre">       | True   False  Nil    </span><br/>
+              <span class="l3-pre"> ------+--------------------  </span><br/>
+              <span class="l3-pre"> True  | Nil    False  True   </span><br/>
+              <span class="l3-pre"> False | False  Nil    False  </span><br/>
+              <span class="l3-pre"> Nil   | True   False  Nil    </span> 
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">multiply</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a></span>
+            <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
+          </div> 
+          <div class="l3-summary">
+            Performs multiplication on this object and the parameter object.&nbsp; 
+            See the <a href="#l3-refnotesgf3">notes</a> on GF(3) operations.&nbsp; 
+            The truth table of this commutative operation:<br/><br/>
+              <span class="l3-pre">       | True   False  Nil    </span><br/>
+              <span class="l3-pre"> ------+--------------------  </span><br/>
+              <span class="l3-pre"> True  | True   False  Nil    </span><br/>
+              <span class="l3-pre"> False | False  True   Nil    </span><br/>
+              <span class="l3-pre"> Nil   | Nil    Nil    Nil    </span> 
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">divide</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a></span>
+            <a class="l3-typerefspec" href="#l3-reflogic3value">Logic3Value</a>
+          </div> 
+          <div class="l3-summary">
+            Performs division on this object and the parameter object.&nbsp; 
+            If the parameter is <span class="l3-monospace">Nil</span>, an error is thrown.&nbsp; 
+            See the <a href="#l3-refnotesgf3">notes</a> on GF(3) operations.&nbsp; 
+            The truth table of this non-commutative operation:<br/><br/>
+              <span class="l3-pre">       | True   False  Nil    </span><br/>
+              <span class="l3-pre"> ------+--------------------  </span><br/>
+              <span class="l3-pre"> True  | True   False  -      </span><br/>
+              <span class="l3-pre"> False | False  True   -      </span><br/>
+              <span class="l3-pre"> Nil   | Nil    Nil    -      </span> 
+          </div>
+        </div>
       </div>
-      <div class="l3-functionalias">
+      <div class="l3-class" id="l3-reflogic3assertions">
+        <div class="l3-classname">Assertions</div>
+        <div class="l3-summary">
+          This class provides methods that support asserting conditions in tests. 
+        </div>
+        <div class="l3-field">
+          <div>
+            <span class="l3-membername">typename</span>
+            <span class="l3-type">String</span>
+          </div> 
+          <div class="l3-summary">The name of this class.</div>
+        </div>
+      </div>
+      <div class="l3-class" id="l3-reflogic3test">
+        <div class="l3-classname">Logic3Test</div>
+        <div class="l3-summary">
+          Represents a choice in the fluent API, where a handler can be set for equality test failure or success,
+          but not for both cases.&nbsp; This is an intermediate object representing a step in the fluent invocation chain.&nbsp; 
+          Only one method of the instance can be invoked, only once, otherwise an error is thrown. 
+        </div>
+        <div class="l3-field">
+          <div>
+            <span class="l3-membername">typename</span>
+            <span class="l3-type">String</span>
+          </div> 
+          <div class="l3-summary">The name of this class.</div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">ok</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refmonoconsumer">MonoConsumer</a></span>
+            <a class="l3-typerefspec" href="#l3-reflogic3testok">Logic3TestOk</a>
+          </div> 
+          <div class="l3-summary">
+            The argument function is invoked after the equality test passed.
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">fail</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refmonoconsumer">MonoConsumer</a></span>
+            <a class="l3-typerefspec" href="#l3-reflogic3testfail">Logic3TestFail</a>
+          </div> 
+          <div class="l3-summary">
+            The argument function is invoked after the equality test failed.
+          </div>
+        </div>
+      </div>
+      <div class="l3-alias" id="l3-refanything">
+        <div>
+          <span class="l3-membername">Anything</span>
+        </div> 
+        <div class="l3-summary">Alias for a primitive value or a function or a Javascript <span class="l3-monospace">Object</span> instance (or anything).</div>
+      </div>
+      <div class="l3-functionalias" id="l3-refmonoconsumer">
         <div>
           <span class="l3-membername">MonoFunction</span>
           <span class="l3-foralias">function</span>
@@ -238,10 +458,30 @@
         </div> 
         <div class="l3-summary">Alias for a function that accepts two parameters and may return an object.</div>
       </div>
+      <div class="l3-functionalias">
+        <div>
+          <span class="l3-membername">MonoConsumer</span>
+          <span class="l3-foralias">function</span>
+          <span class="l3-arguments">Object</span>
+          <span class="l3-type">N/A</span>
+        </div> 
+        <div class="l3-summary">Alias for a function that accepts one parameter.&nbsp; The return value, if any, is insignificant.</div>
+      </div>
     </div>
 
+    <h3>Three-valued logic and GF(3)</h3> 
+    <div class="l3-generalparagraph" id="l3-refnotesgf3">
+      The truth values and the four operations form a finite field named <span class="l3-monospace">L3</span> of order 3: &nbsp;
+      <span class="l3-monospace">L3 := ({ True, False, Nil }, +, -, &middot;, &divide;)</span>. &nbsp;
+      <span class="l3-monospace">True</span> represents the multiplicative identity of the field, 
+      <span class="l3-monospace">Nil</span> represents the additive identity of the field and 
+      <span class="l3-monospace">False</span> represents the additive inverese of <span class="l3-monospace">True</span>. 
+    </div> 
+
+    <br/>
+
     <div class="l3-footer">
-      <i>2021-01-03</i>
+      <i>2021-01-11</i>
     </div>
   </body>
 </html>

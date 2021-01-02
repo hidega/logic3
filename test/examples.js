@@ -58,4 +58,12 @@ console.log(Logic3.evaluate('').toString())           // empty String is convert
 console.log(Logic3.evaluate('abc').toString())        // True
 console.log(Logic3.evaluate(1).toString())            // a nonzero number is converted to True
 console.log(Logic3.evaluate(0).toString())            // False
+                                                      //
+                                                      // fluent test
+Logic3.test(Logic3.False)                             //
+  .ok(() => console.log('passed'))                    //
+  .fail(() => { throw 'did not pass' })               //
+
+
+
 
