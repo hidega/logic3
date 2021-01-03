@@ -630,9 +630,9 @@ var caseCalculateAnd = () => {
   assert.equal(operations.and(T, N), N)
   assert.equal(operations.and(F, T), F)
   assert.equal(operations.and(F, F), F)
-  assert.equal(operations.and(F, N), N)
+  assert.equal(operations.and(F, N), F)
   assert.equal(operations.and(N, T), N)
-  assert.equal(operations.and(N, F), N)
+  assert.equal(operations.and(N, F), F)
   assert.equal(operations.and(N, N), N)
 
   assert(values.True.and(values.True).equals(values.True))
@@ -640,9 +640,9 @@ var caseCalculateAnd = () => {
   assert(values.True.and(values.Nil).equals(values.Nil))
   assert(values.False.and(values.True).equals(values.False))
   assert(values.False.and(values.False).equals(values.False))
-  assert(values.False.and(values.Nil).equals(values.Nil))
+  assert(values.False.and(values.Nil).equals(values.False))
   assert(values.Nil.and(values.True).equals(values.Nil))
-  assert(values.Nil.and(values.False).equals(values.Nil))
+  assert(values.Nil.and(values.False).equals(values.False))
   assert(values.Nil.and(values.Nil).equals(values.Nil))
 }
 
@@ -652,9 +652,9 @@ var caseCalculateOr = () => {
   assert.equal(operations.or(T, N), T)
   assert.equal(operations.or(F, T), T)
   assert.equal(operations.or(F, F), F)
-  assert.equal(operations.or(F, N), F)
+  assert.equal(operations.or(F, N), N)
   assert.equal(operations.or(N, T), T)
-  assert.equal(operations.or(N, F), F)
+  assert.equal(operations.or(N, F), N)
   assert.equal(operations.or(N, N), N)
 
   assert(values.True.or(values.True).equals(values.True))
@@ -662,13 +662,15 @@ var caseCalculateOr = () => {
   assert(values.True.or(values.Nil).equals(values.True))
   assert(values.False.or(values.True).equals(values.True))
   assert(values.False.or(values.False).equals(values.False))
-  assert(values.False.or(values.Nil).equals(values.False))
+  assert(values.False.or(values.Nil).equals(values.Nil))
   assert(values.Nil.or(values.True).equals(values.True))
-  assert(values.Nil.or(values.False).equals(values.False))
+  assert(values.Nil.or(values.False).equals(values.Nil))
   assert(values.Nil.or(values.Nil).equals(values.Nil))
 }
 
 var caseCalculateXor = () => {
+  var byFormula = (a, b) => operations.and(operations.or(a, b), operations.negate(operations.and(a, b)))
+
   assert.equal(operations.xor(T, T), F)
   assert.equal(operations.xor(T, F), T)
   assert.equal(operations.xor(T, N), N)
@@ -688,27 +690,49 @@ var caseCalculateXor = () => {
   assert(values.Nil.xor(values.True).equals(values.Nil))
   assert(values.Nil.xor(values.False).equals(values.Nil))
   assert(values.Nil.xor(values.Nil).equals(values.Nil))
+
+  assert.equal(operations.xor(T, T), byFormula(T, T))
+  assert.equal(operations.xor(T, F), byFormula(T, F))
+  assert.equal(operations.xor(T, N), byFormula(T, N))
+  assert.equal(operations.xor(F, T), byFormula(F, T))
+  assert.equal(operations.xor(F, F), byFormula(F, F))
+  assert.equal(operations.xor(F, N), byFormula(F, N))
+  assert.equal(operations.xor(N, T), byFormula(N, T))
+  assert.equal(operations.xor(N, F), byFormula(N, F))
+  assert.equal(operations.xor(N, N), byFormula(N, N))
 }
 
 var caseCalculateImpl = () => {
+  var byFormula = (a, b) => operations.or(operations.negate(a), b)
+
   assert.equal(operations.imp(T, T), T)
   assert.equal(operations.imp(T, F), F)
-  assert.equal(operations.imp(T, N), F)
+  assert.equal(operations.imp(T, N), N)
   assert.equal(operations.imp(F, T), T)
   assert.equal(operations.imp(F, F), T)
   assert.equal(operations.imp(F, N), T)
   assert.equal(operations.imp(N, T), T)
-  assert.equal(operations.imp(N, F), F)
+  assert.equal(operations.imp(N, F), N)
   assert.equal(operations.imp(N, N), N)
+
+  assert.equal(operations.imp(T, T), byFormula(T, T))
+  assert.equal(operations.imp(T, F), byFormula(T, F))
+  assert.equal(operations.imp(T, N), byFormula(T, N))
+  assert.equal(operations.imp(F, T), byFormula(F, T))
+  assert.equal(operations.imp(F, F), byFormula(F, F))
+  assert.equal(operations.imp(F, N), byFormula(F, N))
+  assert.equal(operations.imp(N, T), byFormula(N, T))
+  assert.equal(operations.imp(N, F), byFormula(N, F))
+  assert.equal(operations.imp(N, N), byFormula(N, N))
 
   assert(values.True.imply(values.True).equals(values.True))
   assert(values.True.imply(values.False).equals(values.False))
-  assert(values.True.imply(values.Nil).equals(values.False))
+  assert(values.True.imply(values.Nil).equals(values.Nil))
   assert(values.False.imply(values.True).equals(values.True))
   assert(values.False.imply(values.False).equals(values.True))
   assert(values.False.imply(values.Nil).equals(values.True))
   assert(values.Nil.imply(values.True).equals(values.True))
-  assert(values.Nil.imply(values.False).equals(values.False))
+  assert(values.Nil.imply(values.False).equals(values.Nil))
   assert(values.Nil.imply(values.Nil).equals(values.Nil))
 }
 

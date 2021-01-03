@@ -13,13 +13,13 @@ function Operations(T, F, N) {
     ],
     or: [
       [T, T, T],
-      [T, F, F],
-      [T, F, N]
+      [T, F, N],
+      [T, N, N]
     ],
     and: [
       [T, F, N],
-      [F, F, N],
-      [N, N, N]
+      [F, F, F],
+      [N, F, N]
     ],
     add: [
       [F, N, T],
@@ -42,9 +42,9 @@ function Operations(T, F, N) {
       [N, N]
     ],
     imp: [
-      [T, F, F],
+      [T, F, N],
       [T, T, T],
-      [T, F, N]
+      [T, N, N]
     ],
     del: [
       [N, T, T],
