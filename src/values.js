@@ -8,13 +8,13 @@ var FluentLogic = require('./fluent-logic')
 var Constants = require('./constants')
 var test = require('./test-logic')
 
-function Logic3Value(intVal, extras) {
+function Logic3Value(intVal) {
   HasPrimitiveRepresentations.call(this, intVal)
   HasPredicates.call(this, intVal)
   OffersOperations.call(this, Logic3Value.checkLogic3, Logic3Value.ofInteger)
   Comparable.call(this, Logic3Value.checkLogic3)
-  FluentLogic.call(this, extras)
-  this.typename = 'Logic3' + (extras ? 'Ext' : '') + 'Value'
+  FluentLogic.call(this)
+  this.typename = 'Logic3Value'
 }
 
 Logic3Value.newInstance = (n, e) => Object.freeze(new Logic3Value(n, e))
@@ -35,8 +35,7 @@ var values = {
   test: obj => test(Logic3Value.checkLogic3(obj), obj),
   True: Logic3Value.ofInteger(Constants.trueInt),
   False: Logic3Value.ofInteger(Constants.falseInt),
-  Nil: Logic3Value.ofInteger(Constants.nilInt),
-  valueWithExtras: (l3, extras) => Logic3Value.newInstance(l3.toNumber(), extras)
+  Nil: Logic3Value.ofInteger(Constants.nilInt)
 }
 
 module.exports = values

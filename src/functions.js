@@ -17,9 +17,9 @@ Functions.invokeFunction = (functions, f, name) => {
 
 Functions.isFunction = f => typeof f === 'function'
 
-Functions.resolveResult3 = (f, l3, extras) => Functions.isFunction(f) ? f(l3, extras) : f
+Functions.resolveResult3 = (f, l3, other) => Functions.isFunction(f) ? f(l3, other) : f
 
-Functions.resolveResult2 = (f, extras) => Functions.isFunction(f) ? f(extras) : f
+Functions.resolveResult2 = f => Functions.isFunction(f) ? f() : f
 
 Functions.ValOtw = function(result, mappedResult, l3, other, typename) {
   var functions = new Functions({

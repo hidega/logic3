@@ -22,8 +22,7 @@ module.exports = val => {
     result = val
   } else if(val === null || val === undefined || isInvalidNumber(val) || isInvalidDate(val)) {
     result = values.Nil
-  } else if(isFalse(val) || isEmptyString(val) || isEmptyArray(val) ||
-      isEmptyObject(val) || isZero(val)) {
+  } else if(isFalse(val) || isEmptyString(val) || isEmptyArray(val) || isEmptyObject(val) || isZero(val)) {
     result = values.False
   }
   return result

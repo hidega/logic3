@@ -2,16 +2,16 @@
 
 var values = require('./values')
 
-var fail= msg => { throw new Error(msg) }
+var fail = msg => { throw new Error(msg) }
 
-var error = msg => fail('Error: value is ' + msg)
+var error = msg => fail('Asseretion Error: value is ' + msg)
 
 var assertLogic3 = a => values.check(a) ? true : error(`not a Logic3 value : ${a}`)
 
 module.exports = Object.freeze({
   typename: 'Logic3Assertions',
   fail,
-  assertLogic3,
+  assertLogic3: a => values.check(a) ? true : error(`not a Logic3 value : ${a}`),
   assertNotLogic3: a => values.check(a) ? error(`a Logic3 value : ${a}`) : true,
   assertTrue: a => assertLogic3(a) && a.isTrue() ? true : error(`not True : ${a}`),
   assertNotTrue: a => assertLogic3(a) && a.isNotTrue() ? true : error(`True : ${a}`),

@@ -399,57 +399,34 @@ var caseEqualityFluent = () => {
   assert.equal(N, intResult)
   assert.equal(6, invocationCount)
 
-  intResult = values.True.whenEquals(values.False).then(assert.fail).otherwise((l3, k3) => {
-    assert(values.True.equals(l3))
-    assert(values.False.equals(k3))
+  var tester = (val1, val2) => (l3, k3) => {
+    assert(val1.equals(l3))
+    assert(val2.equals(k3))
     invocationCount++
     return l3.toNumber()
-  })
+  }
+
+  intResult = values.True.whenEquals(values.False).then(assert.fail).otherwise(tester(values.True, values.False))
   assert.equal(T, intResult)
   assert.equal(7, invocationCount)
 
-  intResult = values.Nil.whenEquals(values.False).then(assert.fail).otherwise((l3, k3) => {
-    assert(values.Nil.equals(l3))
-    assert(values.False.equals(k3))
-    invocationCount++
-    return l3.toNumber()
-  })
+  intResult = values.Nil.whenEquals(values.False).then(assert.fail).otherwise(tester(values.Nil, values.False))
   assert.equal(N, intResult)
   assert.equal(8, invocationCount)
 
-  intResult = values.Nil.whenEquals(values.True).then(assert.fail).otherwise((l3, k3) => {
-    assert(values.Nil.equals(l3))
-    assert(values.True.equals(k3))
-    invocationCount++
-    return l3.toNumber()
-  })
+  intResult = values.Nil.whenEquals(values.True).then(assert.fail).otherwise(tester(values.Nil, values.True))
   assert.equal(N, intResult)
   assert.equal(9, invocationCount)
 
-  intResult = values.True.whenEquals(values.Nil).then(assert.fail).otherwise((l3, k3) => {
-    assert(values.True.equals(l3))
-    assert(values.Nil.equals(k3))
-    invocationCount++
-    return l3.toNumber()
-  })
+  intResult = values.True.whenEquals(values.Nil).then(assert.fail).otherwise(tester(values.True, values.Nil))
   assert.equal(T, intResult)
   assert.equal(10, invocationCount)
 
-  intResult = values.False.whenEquals(values.Nil).then(assert.fail).otherwise((l3, k3) => {
-    assert(values.False.equals(l3))
-    assert(values.Nil.equals(k3))
-    invocationCount++
-    return l3.toNumber()
-  })
+  intResult = values.False.whenEquals(values.Nil).then(assert.fail).otherwise(tester(values.False, values.Nil))
   assert.equal(F, intResult)
   assert.equal(11, invocationCount)
 
-  intResult = values.False.whenEquals(values.True).then(assert.fail).otherwise((l3, k3) => {
-    assert(values.False.equals(l3))
-    assert(values.True.equals(k3))
-    invocationCount++
-    return l3.toNumber()
-  })
+  intResult = values.False.whenEquals(values.True).then(assert.fail).otherwise(tester(values.False, values.True))
   assert.equal(F, intResult)
   assert.equal(12, invocationCount)
 
@@ -823,32 +800,31 @@ var caseTamperProofness = () => {
 }
 
 var caseEvaluateFluent = () => {
-  var assertParams = (l3exp, subject, retval) => (l3, s) => {
+  var assertParams = (l3exp, retval) => l3 => {
     assert(l3.equals(l3exp))
-    assert.equal(subject, s)
     return retval
   }
 
-  var result = L3.evaluate(null).whenNotFalseThen(assertParams(values.Nil, null, 5))
+  var result = L3.of(null).whenNotFalseThen(assertParams(values.Nil, 5))
   assert.equal(result, 5)
-  result = L3.evaluate(15).whenNotFalseThen(assertParams(values.True, 15, 5))
-  assert.equal(result, 5)
-  result = L3.evaluate(0).whenNotNil(assertParams(values.False, 0, 5)).value()
-  assert.equal(result, 5)
-  result = L3.evaluate(someObject).whenNil(assert.fail).whenFalse(assert.fail).whenTrue(assertParams(values.True, someObject, ''))
+  result = L3.of(15).whenNotFalseThen(assertParams(values.True, ''))
   assert.equal(result, '')
-  result = L3.evaluate(someObject).whenNil(assert.fail).whenFalse(assert.fail).otherwise(assertParams(values.True, someObject, true))
+  result = L3.of(0).whenNotNil(assertParams(values.False, true)).value()
   assert.equal(result, true)
-  result = L3.evaluate(5).whenFalse(assert.fail).whenNil(assert.fail).whenTrue(assertParams(values.True, 5, ''))
+  result = L3.of(someObject).whenNil(assert.fail).whenFalse(assert.fail).whenTrue(assertParams(values.True, someObject))
+  assert.equal(result, someObject)
+  result = L3.of(someObject).whenNil(assert.fail).whenFalse(assert.fail).otherwise(assertParams(values.True, null))
+  assert.equal(result, null)
+  result = L3.of(5).whenFalse(assert.fail).whenNil(assert.fail).whenTrue(assertParams(values.True, 'abc'))
+  assert.equal(result, 'abc')
+  result = L3.of(5).whenTrue(assertParams(values.True, '')).whenFalse(assert.fail).whenNil(assert.fail)
   assert.equal(result, '')
-  result = L3.evaluate(5).whenTrue(assertParams(values.True, 5, '')).whenFalse(assert.fail).whenNil(assert.fail)
+  result = L3.of(5).whenNil(assert.fail).whenTrue(assertParams(values.True)).whenFalse(assert.fail)
+  assert.equal(result, undefined)
+  result = L3.of(5).whenNil(assert.fail).whenTrue(assertParams(values.True, '')).value()
   assert.equal(result, '')
-  result = L3.evaluate(5).whenNil(assert.fail).whenTrue(assertParams(values.True, 5, '')).whenFalse(assert.fail)
-  assert.equal(result, '')
-  result = L3.evaluate(5).whenNil(assert.fail).whenTrue(assertParams(values.True, 5, '')).value()
-  assert.equal(result, '')
-  result = L3.evaluate(5).whenNil(assert.fail).otherwise(assertParams(values.True, 5, ''))
-  assert.equal(result, '')
+  result = L3.of(-1).whenNil(assert.fail).otherwise(assertParams(values.True, 0))
+  assert.equal(result, 0)
 }
 
 var caseWhenIs = () => {
@@ -1028,23 +1004,6 @@ var caseWhenIs = () => {
   assert.equal(values.Nil.whenNil(0).value(), 0)
 }
 
-var caseWithObject = () => {
-  var assertParams = (l3exp, subject, retval) => (l3, s) => {
-    assert(l3.equals(l3exp))
-    assert.equal(subject, s)
-    return retval
-  }
-
-  L3.withObject(values.True, someObject).whenNotNil(assertParams(values.True, someObject)).otherwise(assert.fail)
-  L3.withObject(values.Nil, someObject).whenNotNil(assert.fail).otherwise(assertParams(values.Nil, someObject))
-  L3.withObject(values.True, '').whenNotNilThen(assertParams(values.True, ''))
-  L3.withObject(values.False, someObject).whenNotTrue(assertParams(values.False, someObject)).otherwise(assert.fail)
-  L3.withObject(values.False, 5).whenNotTrueThen(assertParams(values.False, 5))
-  L3.withObject(values.True, someObject).whenNotFalse(assertParams(values.True, someObject)).otherwise(assert.fail)
-  L3.withObject(values.False, someObject).whenNotFalse(assert.fail).otherwise(assertParams(values.False, someObject))
-  L3.withObject(values.True, null).whenNotFalseThen(assertParams(values.True, null))
-}
-
 var caseWhenNot = () => {
   var intResult = values.True.whenNotNilThen(l3 => l3.toNumber())
   assert.equal(T, intResult)
@@ -1179,7 +1138,6 @@ caseEvaluateFluent()
 caseTamperProofness()
 caseMultiApiInstance()
 caseAssertions()
-caseWithObject()
 caseFilter()
 
 console.log('Tests are OK :)')
