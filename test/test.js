@@ -207,16 +207,6 @@ var caseAssertions = () => {
   assert.throws(() => L3.assertions.assertEqual(values.False, values.Nil))
 }
 
-var caseFilter = () => {
-  assert.equal(values.filter(), undefined)
-  assert.equal(values.filter(null), undefined)
-  assert.equal(values.filter(someObject), undefined)
-  assert.equal(values.filter(1), undefined)
-  assert(values.filter(values.True).isTrue())
-  assert(values.filter(values.False).isFalse())
-  assert(values.filter(values.Nil).isNil())
-}
-
 var caseCalculateMultiply = () => {
   assert.equal(operations.mul(T, T), T)
   assert.equal(operations.mul(T, F), F)
@@ -1138,7 +1128,6 @@ caseEvaluateFluent()
 caseTamperProofness()
 caseMultiApiInstance()
 caseAssertions()
-caseFilter()
 
 console.log('Tests are OK :)')
 

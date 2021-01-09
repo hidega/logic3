@@ -23,8 +23,6 @@ function Level2ValOtw(result, mappedResult, l3, predicateName, tn) {
 
 Level2ValOtw.newInstance = (...params) => Object.freeze(new Level2ValOtw(...params))
 
-var getTypename = n => 'Logic3' + n 
-
 function WhenIs(result, mappedResult, predicateNameA, predicateNameB, l3) {
   var typename = 'WhenNil'
   if(predicateNameA === 'isFalse' && predicateNameB === 'isNil') {
@@ -41,7 +39,7 @@ function WhenIs(result, mappedResult, predicateNameA, predicateNameB, l3) {
   var elseIs = (f, pn, rn) => {
     var r = result || l3[pn]()
     var fwd = result ? mappedResult : (r ? Functions.resolveResult3(f, l3) : undefined)
-    return Level2ValOtw.newInstance(r, r ? fwd : undefined, l3, rn, typename)
+    return Level2ValOtw.newInstance(r, r ? fwd : undefined, l3, rn, this.typename)
   } 
 
   var elseThen = (pn, f) => result ? mappedResult : (l3[pn]() ? Functions.resolveResult3(f, l3) : undefined)
@@ -55,7 +53,7 @@ function WhenIs(result, mappedResult, predicateNameA, predicateNameB, l3) {
     [pnameBt]: f => elseThen(predicateNameB, f)
   })
 
-  this.typename = getTypename(typename)
+  this.typename = 'Logic3' + typename
 
   this.value = f => Functions.invokeFunction(functions, f, 'value')
 
@@ -93,13 +91,13 @@ function FluentWhenIs() {
 function FluentLogic() {
   var then = (predicate, f) => predicate ? Functions.resolveResult3(f, this) : undefined
 
-  var whenNot = (predicate, f, tn) => Functions.ValOtw.newInstance(predicate, then(predicate, f), this, tn)
+  var whenNot = (predicate, f, tn) => Functions.ValOtw.newInstance(predicate, then(predicate, f), this, undefined, tn)
 
-  this.whenNotTrue = f => whenNot(this.isNotTrue(), f, getTypename('WhenNotTrue'))
+  this.whenNotTrue = f => whenNot(this.isNotTrue(), f, 'Logic3WhenNotTrue')
 
-  this.whenNotFalse = f => whenNot(this.isNotFalse(), f, getTypename('WhenNotFalse'))
+  this.whenNotFalse = f => whenNot(this.isNotFalse(), f, 'Logic3WhenNotFalse')
 
-  this.whenNotNil = f => whenNot(this.isNotNil(), f, getTypename('WhenNotNil'))
+  this.whenNotNil = f => whenNot(this.isNotNil(), f, 'Logic3WhenNotNil')
 
   this.whenNotTrueThen = f => then(this.isNotTrue(), f)
 
