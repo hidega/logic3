@@ -16,12 +16,12 @@ Examples
 ```js
 var Logic3 = require('..')                            // the Logic3 singleton
                                                       //
-                                                      // three basic instances of Logic3Val  
+                                                      // three basic instances of Logic3Value  
 console.log(Logic3.True.toString())                   // True
 console.log(Logic3.False.toString())                  // False
 console.log(Logic3.Nil.toString())                    // Nil
  
-                                                      // check if an object of Logic3Val type
+                                                      // check if an object is of Logic3Value type
 console.log(Logic3.check(Logic3.True))                // true
 console.log(Logic3.check({ foo: 1 }))                 // false
 
@@ -31,11 +31,11 @@ console.log(Logic3.True.equals(Logic3.True))          // true
 console.log(Logic3.True.isTrue())                     // true
 console.log(Logic3.True.isNil())                      // false
 
-                                                      // operations on the Logic3Val type
+                                                      // operations on the Logic3Value type
 console.log(Logic3.Nil.or(Logic3.True).toString())    // True
 console.log(Logic3.False.and(Logic3.True).toString()) // False
 
-                                                      // fluent style operations
+                                                      // fluent style value checking
 var result = Logic3.True                              //
   .whenFalse(() => { throw 'this is not called' })    //
   .whenNil(() => { throw 'this is not called' })      //
@@ -51,9 +51,9 @@ console.log(Logic3.True.toBoolean())                  // true
 console.log(Logic3.Nil.toBoolean())                   // undefined
 
                                                       // convert plain object to logical value
-console.log(Logic3.of(null).toString())               // null and undefined is converted to Nil
-console.log(Logic3.of('').toString())                 // empty String is converted to False
-console.log(Logic3.of(1).toString())                  // a nonzero number is converted to True
+console.log(Logic3.of(null).toString())               // null and undefined is converted to  Nil
+console.log(Logic3.of('').toString())                 // empty String is converted to  False
+console.log(Logic3.of(1).toString())                  // a nonzero number is converted to  True
 
 ```
 [More examples](https://github.com/hidega/logic3/blob/development/test/examples.js)
