@@ -1102,6 +1102,22 @@ var caseValuesTest = () => {
 
   values.test(null).ok(assert.fail).fail(() => {})
   values.test(undefined).ok(assert.fail).fail(() => {})
+
+  assert.equal(values.test(0).ok(assert.fail).fail(() => 1), false)
+  assert.equal(values.test('').fail(() => 1).ok(assert.fail), false)
+  assert.equal(values.test(values.True).fail(assert.fail).ok(() => 1), true)
+  assert.equal(values.test(values.False).ok(() => 1).fail(assert.fail), true)
+
+  var testL3 = values.test(values.False)
+  var testL3Ok = testL3.ok(() => {})
+  assert.throws(() => testL3.ok(() => {}))
+  assert.throws(() => testL3.fail(() => {}))
+  testL3Ok.fail(() => {})
+  assert.throws(() => testL3Ok.fail(() => {}))
+  testL3 = values.test(values.Nil)
+  var testL3Fail = testL3.fail(() => {}) 
+  testL3Fail.ok(() => {})
+  assert.throws(() => testL3Fail.ok(() => {}))
 }
 
 smokeTests()

@@ -51,9 +51,9 @@ console.log(Logic3.True.toBoolean())                  // true
 console.log(Logic3.Nil.toBoolean())                   // undefined
 
                                                       // convert plain object to logical value
-console.log(Logic3.evaluate(null).toString())         // null and undefined is converted to Nil
-console.log(Logic3.evaluate('').toString())           // empty String is converted to False
-console.log(Logic3.evaluate(1).toString())            // a nonzero number is converted to True
+console.log(Logic3.of(null).toString())               // null and undefined is converted to Nil
+console.log(Logic3.of('').toString())                 // empty String is converted to False
+console.log(Logic3.of(1).toString())                  // a nonzero number is converted to True
 
 ```
 [More examples](https://github.com/hidega/logic3/blob/development/test/examples.js)

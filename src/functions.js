@@ -6,7 +6,7 @@ function Functions(funs) {
   this.get = key => functions[key]
 
   this.invalidate = () => Object.keys(functions)
-    .forEach(key => functions[key] = () => { throw new Error('Illegal fluent method invocation (' + key + ')') })
+    .forEach(key => functions[key] = () => { throw new Error('Illegal fluent method invocation (' + key + ').') })
 }
 
 Functions.invokeFunction = (functions, f, name) => {

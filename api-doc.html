@@ -188,6 +188,14 @@
           </div> 
           <div class="l3-summary">The name of this class.</div>
         </div>
+        <div class="l3-field">
+          <div>
+            <span class="l3-membername">assertions</span>
+            <a class="l3-typerefspec" href="#l3-reflogic3assertions">Logic3Assertions</a>
+          </div> 
+          <div class="l3-summary">This object provides a set of methods for verifying invariants of 
+          <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a> instances.</div>
+        </div>
         <div class="l3-method">
           <div>
             <span class="l3-membername">of</span>
@@ -240,6 +248,62 @@
             <span class="l3-type">String</span>
           </div> 
           <div class="l3-summary">The name of this class.</div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">toString</span>
+            <span class="l3-monospace">()</span>
+            <span class="l3-type">String</span>
+          </div>
+          <div class="l3-summary">
+            Returns a unique string representation for each logical value.
+          </div> 
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">toNumber</span>
+            <span class="l3-monospace">()</span>
+            <span class="l3-type">Number</span>
+          </div>
+          <div class="l3-summary">
+            Returns a unique integer representation for each logical value.
+          </div> 
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">toBoolean</span>
+            <span class="l3-monospace">()</span>
+            <span class="l3-type">Boolean | undefined</span>
+          </div>
+          <div class="l3-summary">
+            Returns <span class="l3-monospace">true</span> if this instance is <span class="l3-monospace">True</span>,
+            returns <span class="l3-monospace">false</span> if this instance is <span class="l3-monospace">False</span>,
+            and returns <span class="l3-monospace">undefined</span> if this instance is <span class="l3-monospace">Nil</span>.
+          </div> 
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">equals</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a></span>
+            <span class="l3-type">Boolean</span>
+          </div>
+          <div class="l3-summary">
+            Returns <span class="l3-monospace">true</span> if the parameter is a  
+            <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a> and represents the same logical value as this object.&nbsp;
+            Otherwise returns <span class="l3-monospace">false</span>.  
+          </div> 
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">notEquals</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a></span>
+            <span class="l3-type">Boolean</span>
+          </div>
+          <div class="l3-summary">
+            Returns <span class="l3-monospace">true</span> if the parameter is not a  
+            <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a> or it does not represent the same logical value as this object.&nbsp;
+            Otherwise returns <span class="l3-monospace">false</span>.  
+          </div> 
         </div>
         <div class="l3-method">
           <div>
@@ -456,7 +520,7 @@
         </div>
       </div>
       <div class="l3-class" id="l3-reflogic3assertions">
-        <div class="l3-classname">Assertions</div>
+        <div class="l3-classname">Logic3Assertions</div>
         <div class="l3-summary">
           This class provides methods that support asserting conditions in tests. &nbsp;
           The assertion methods return <span class="l3-monospace">true</span> on success, enabling assertions
@@ -593,9 +657,12 @@
       <div class="l3-class" id="l3-reflogic3test">
         <div class="l3-classname">Logic3Test</div>
         <div class="l3-summary">
-          Represents a choice in the fluent API, where a handler can be set for equality test failure or success,
+          Represents a choice in the fluent API, where a handler can be set for instance membership test failure or success,
           but not for both cases.&nbsp; This is an intermediate object representing a step in the fluent invocation chain.&nbsp; 
-          Only one method of the instance can be invoked, only once, otherwise an error is thrown. 
+          Only one method of the instance can be invoked, only once, otherwise an error is thrown.&nbsp; 
+          The typical invocation looks like:<br/><br/>
+          <span class="l3-pre">  Logic3.test(someObject).ok(() => {...}).fail(() => {...})</span><br/>
+          <span class="l3-pre">  Logic3.test(someObject).fail(() => {...}).ok(() => {...})</span>
         </div>
         <div class="l3-field">
           <div>
@@ -611,7 +678,7 @@
             <a class="l3-typerefspec" href="#l3-reflogic3testok">Logic3TestOk</a>
           </div> 
           <div class="l3-summary">
-            The argument function is invoked after the equality test passed.
+            The argument function is invoked after the instance membership test passed, otherwise it is ignored.
           </div>
         </div>
         <div class="l3-method">
@@ -621,7 +688,69 @@
             <a class="l3-typerefspec" href="#l3-reflogic3testfail">Logic3TestFail</a>
           </div> 
           <div class="l3-summary">
-            The argument function is invoked after the equality test failed.
+            The argument function is invoked after the instance membership test failed, otherwise it is ignored.
+          </div>
+        </div>
+      </div>
+      <div class="l3-class" id="l3-reflogic3testok">
+        <div class="l3-classname">Logic3TestOk</div>
+        <div class="l3-summary">
+          Represents the last step in the tester fluent API, where a handler can be set for instance test failure.&nbsp; 
+          The object's <span class="l3-monospace">fail()</span> method can be called at most once, otherwise an error is thrown. 
+        </div>
+        <div class="l3-field">
+          <div>
+            <span class="l3-membername">typename</span>
+            <span class="l3-type">String</span>
+          </div> 
+          <div class="l3-summary">The name of this class.</div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">fail</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refmonoconsumer">MonoConsumer</a> m</span>
+            <span class="l3-type">Boolean</span>
+          </div> 
+          <div class="l3-summary">
+            The <span class="l3-monospace">m</span> argument function is invoked after the instance membership test has failed, otherwise it is ignored.&nbsp; 
+            When the <span class="l3-monospace">m</span> function is invoked, its argument is the object on which the test failed.&nbsp; 
+            This method returns <span class="l3-monospace">true</span> if the test has passed, otherwise <span class="l3-monospace">false</span>.&nbsp; 
+            For example:<br/><br/>
+            <span class="l3-pre">  Logic3.test(1).ok(() => console.log('OK')).fail(console.log)</span><br/><br/>  
+            writes 1 to the console and returns <span class="l3-monospace">false</span>.<br/><br/>
+            <span class="l3-pre">  Logic3.test(Logic3.True).ok(obj => console.log(obj.toBoolean())).fail(() => console.log('Failed'))</span><br/><br/> 
+            writes <span class="l3-monospace">true</span> to the console and returns <span class="l3-monospace">true</span>.
+          </div>
+        </div>
+      </div>
+      <div class="l3-class" id="l3-reflogic3testfail">
+        <div class="l3-classname">Logic3TestFail</div>
+        <div class="l3-summary">
+          Represents the last step in the tester fluent API, where a handler can be set for instance test success.&nbsp; 
+          The object's <span class="l3-monospace">ok()</span> method can be called at most once, otherwise an error is thrown. 
+        </div>
+        <div class="l3-field">
+          <div>
+            <span class="l3-membername">typename</span>
+            <span class="l3-type">String</span>
+          </div> 
+          <div class="l3-summary">The name of this class.</div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">ok</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refmonoconsumer">MonoConsumer</a> m</span>
+            <span class="l3-type">Boolean</span>
+          </div> 
+          <div class="l3-summary">
+            The <span class="l3-monospace">m</span> argument function is invoked after the instance membership test was successful, otherwise it is ignored.&nbsp; 
+            When the <span class="l3-monospace">m</span> function is invoked, its argument is the object on which the test was performed.&nbsp; 
+            This method returns <span class="l3-monospace">true</span> if the test has passed, otherwise <span class="l3-monospace">false</span>.&nbsp; 
+            For example:<br/><br/>
+            <span class="l3-pre">  Logic3.test(1).fail(console.log).ok(() => console.log('OK'))</span><br/><br/>  
+            writes 1 to the console and returns <span class="l3-monospace">false</span>.<br/><br/>
+            <span class="l3-pre">  Logic3.test(Logic3.True).fail(() => console.log('Failed')).ok(obj => console.log(obj.toBoolean()))</span><br/><br/> 
+            writes <span class="l3-monospace">true</span> to the console and returns <span class="l3-monospace">true</span>.
           </div>
         </div>
       </div>
@@ -677,5 +806,40 @@
       <i>2021 - 02 - 11</i>
     </div>
   </body>
+  <!--
+    Intro
+    Algebraic properties
+    Logic3Value [ whenEquals, whenFalse, whenFalseThen, whenNil, whenNilThen, 
+     	    whenNotEquals, whenNotFalse, whenNotFalseThen, whenNotNil, whenNotNilThen, 
+     	    whenNotTrue, whenNotTrueThen, whenTrue, whenTrueThen ]
+    Logic3WhenEquals [ then, thenValueOf, typename ]
+    Logic3WhenEqualsThen [ otherwise, typename, value ]
+    Logic3WhenNotEquals [ then, thenValueOf, typename ]
+    Logic3WhenNotEqualsThen [ otherwise, typename, value ]
+    Logic3WhenTrue [ otherwise, typename, value, whenFalse, whenFalseThen, whenNil, whenNilThen ]
+    Logic3WhenTrueWhenFalse [ otherwise, typename, value, whenFalse ]
+    Logic3WhenTrueWhenNil [ otherwise, typename, value, whenNil ]
+    Logic3WhenNotTrue [ otherwise, typename, value ]
+    Logic3WhenFalse [ otherwise, typename, value, whenNil, whenNilThen, whenTrue, whenTrueThen ]
+    Logic3WhenFalseWhenTrue [ otherwise, typename, value, whenTrue ]
+    Logic3WhenFalseWhenNil [ otherwise, typename, value, whenNil ]
+    Logic3WhenNotFalse [ otherwise, typename, value ]
+    Logic3WhenNil [ otherwise, typename, value, whenFalse, whenFalseThen, whenTrue, whenTrueThen ]
+    Logic3WhenNilWhenTrue [ otherwise, typename, value, whenTrue ]
+    Logic3WhenNilWhenFalse [ otherwise, typename, value, whenFalse ]
+    Logic3WhenNotNil [ otherwise, typename, value ]
+    Logic3WhenTrue [ otherwise, typename, value, whenFalse, whenFalseThen, whenNil, whenNilThen ]
+    Logic3WhenTrueWhenFalse [ otherwise, typename, value, whenFalse ]
+    Logic3WhenTrueWhenNil [ otherwise, typename, value, whenNil ]
+    Logic3WhenNotTrue [ otherwise, typename, value ]
+    Logic3WhenFalse [ otherwise, typename, value, whenNil, whenNilThen, whenTrue, whenTrueThen ]
+    Logic3WhenFalseWhenTrue [ otherwise, typename, value, whenTrue ]
+    Logic3WhenFalseWhenNil [ otherwise, typename, value, whenNil ]
+    Logic3WhenNotFalse [ otherwise, typename, value ]
+    Logic3WhenNil [ otherwise, typename, value, whenFalse, whenFalseThen, whenTrue, whenTrueThen ]
+    Logic3WhenNilWhenTrue [ otherwise, typename, value, whenTrue ]
+    Logic3WhenNilWhenFalse [ otherwise, typename, value, whenFalse ]
+    Logic3WhenNotNil [ otherwise, typename, value ]
+  -->
 </html>
 
