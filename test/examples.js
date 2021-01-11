@@ -83,6 +83,19 @@ result = Logic3.test(Logic3.True)                     //
   .fail(() => console.log('Failed'))                  //
   .ok(obj => console.log(obj.toBoolean()))            // true
 console.log(result)                                   // true
+
+                                                      // simple value check
+console.log(Logic3.True.whenNilThen(5))               // undefined
+console.log(Logic3.True.whenTrueThen(5))              // 5
                                                       //
+result = Logic3.True.whenTrueThen(v => {              //
+  console.log(v.toString())                           // True
+  return 'A'                                          //
+})                                                    //
+console.log(result)                                   // A
+                                                      //
+result = Logic3.True                                  //
+  .whenFalseThen(v => { throw 'this is not called'})  //
+console.log(result)                                   // undefined
 
 
