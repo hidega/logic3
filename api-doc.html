@@ -150,7 +150,7 @@
       In this documentation, the objects are referred by this pseudo-class.&nbsp; 
       The abovementioned truth values are represented by a class named 
       <a class="l3-typeref" href="#l3-reflogic3value">Logic3Value</a>.&nbsp; 
-      The API provides a fluent interface to create, access and test the truth values.&nbsp; 
+      The API provides a fluent interface to access and test the truth values.&nbsp; 
       All objects in the API are immutable.&nbsp; 
       For the algerbaic properties of the structure consisting of the three truth values and the corresponding operations 
       see the notes <a href="#l3-refnotesgf3">here</a>.&nbsp; 
@@ -431,6 +431,22 @@
             If this object does not represent <span class="l3-monospace">Nil</span> 
             then returns <span class="l3-monospace">undefined</span>.
           </div> 
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">whenEquals</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a></span>
+            <a class="l3-typerefspec" href="#l3-reflogic3whenequals">Logic3WhenEquals</a>
+          </div>
+          <div class="l3-summary">Fluent equality comparison with the provided parameter.</div> 
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">whenNotEquals</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a></span>
+            <a class="l3-typerefspec" href="#l3-reflogic3whennotequals">Logic3NotWhenEquals</a>
+          </div>
+          <div class="l3-summary">Fluent inequality comparison with the provided parameter.</div> 
         </div>
         <div class="l3-method">
           <div>
@@ -715,6 +731,41 @@
           </div> 
         </div>
       </div>
+
+      <div class="l3-class" id="l3-reflogic3whenequals">
+        <div class="l3-classname">Logic3WhenEquals</div>
+        <div class="l3-summary">
+          This class represents the first step in the fluent equality comparison flow, after the equality test was performed.
+        </div>
+        <div class="l3-field">
+          <div>
+            <span class="l3-membername">typename</span>
+            <span class="l3-type">String</span>
+          </div> 
+          <div class="l3-summary">The name of this class.</div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">then</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a></span>
+            <a class="l3-typerefspec" href="#l3-reflogic3whenequalsthen">Logic3WhenEqualsThen</a>
+          </div> 
+          <div class="l3-summary">
+            If the equality test was successful ...
+          </div>
+        </div>
+        <div class="l3-method">
+          <div>
+            <span class="l3-membername">thenValueOf</span>
+            <span class="l3-paramrefs"><a class="l3-typeref" href="#l3-refanything">Anything</a></span>
+            <a class="l3-typerefspec" href="#l3-refanything">Anything</a>
+          </div> 
+          <div class="l3-summary">
+            ...
+          </div>
+        </div>
+      </div>
+
       <div class="l3-class" id="l3-reflogic3test">
         <div class="l3-classname">Logic3Test</div>
         <div class="l3-summary">
@@ -739,7 +790,7 @@
             <a class="l3-typerefspec" href="#l3-reflogic3testok">Logic3TestOk</a>
           </div> 
           <div class="l3-summary">
-            The argument function is invoked after the instance membership test passed, otherwise it is ignored.
+            The parameter function is invoked after the instance membership test passed, otherwise it is ignored.
           </div>
         </div>
         <div class="l3-method">
@@ -749,7 +800,7 @@
             <a class="l3-typerefspec" href="#l3-reflogic3testfail">Logic3TestFail</a>
           </div> 
           <div class="l3-summary">
-            The argument function is invoked after the instance membership test failed, otherwise it is ignored.
+            The parameter function is invoked after the instance membership test failed, otherwise it is ignored.
           </div>
         </div>
       </div>
@@ -773,8 +824,8 @@
             <span class="l3-type">Boolean</span>
           </div> 
           <div class="l3-summary">
-            The <span class="l3-monospace">m</span> argument function is invoked after the instance membership test has failed, otherwise it is ignored.&nbsp; 
-            When the <span class="l3-monospace">m</span> function is invoked, its argument is the object on which the test failed.&nbsp; 
+            The <span class="l3-monospace">m</span> parameter function is invoked after the instance membership test has failed, otherwise it is ignored.&nbsp; 
+            When the <span class="l3-monospace">m</span> function is invoked, its parameter is the object on which the test failed.&nbsp; 
             This method returns <span class="l3-monospace">true</span> if the test has passed, otherwise <span class="l3-monospace">false</span>.&nbsp; 
             For example:<br/><br/>
             <span class="l3-pre">  Logic3.test(1).ok(() => console.log('OK')).fail(console.log)</span><br/><br/>  
@@ -804,8 +855,8 @@
             <span class="l3-type">Boolean</span>
           </div> 
           <div class="l3-summary">
-            The <span class="l3-monospace">m</span> argument function is invoked after the instance membership test was successful, otherwise it is ignored.&nbsp; 
-            When the <span class="l3-monospace">m</span> function is invoked, its argument is the object on which the test was performed.&nbsp; 
+            The <span class="l3-monospace">m</span> parameter function is invoked after the instance membership test was successful, otherwise it is ignored.&nbsp; 
+            When the <span class="l3-monospace">m</span> function is invoked, its parameter is the object on which the test was performed.&nbsp; 
             This method returns <span class="l3-monospace">true</span> if the test has passed, otherwise <span class="l3-monospace">false</span>.&nbsp; 
             For example:<br/><br/>
             <span class="l3-pre">  Logic3.test(1).fail(console.log).ok(() => console.log('OK'))</span><br/><br/>  
@@ -876,7 +927,7 @@
   </body>
   <!--
     Summary
-    Logic3Value [ whenEquals, whenFalse, whenNil, whenNotEquals, whenNotFalse, whenNotFalseThen, 
+    Logic3Value [ whenFalse, whenNil, whenNotFalse, whenNotFalseThen, 
       whenNotNil, whenNotNilThen, whenNotTrue, whenNotTrueThen, whenTrue ]
     Logic3WhenEquals [ then, thenValueOf, typename ]
     Logic3WhenEqualsThen [ otherwise, typename, value ]
