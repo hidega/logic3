@@ -1,5 +1,3 @@
-'use strict'
-
 var Functions = require('./functions')
 
 function HasConsequence(result, l3, other, typename) {

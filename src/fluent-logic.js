@@ -1,5 +1,3 @@
-'use strict'
-
 var Functions = require('./functions')
 
 function Level2ValOtw(result, mappedResult, l3, predicateName, tn) {

@@ -1,5 +1,3 @@
-'use strict'
-
 function Operations(T, F, N) {
   var indexFor = val => T === val ? 0 : (F === val ? 1 : 2)
 

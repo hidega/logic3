@@ -1,5 +1,3 @@
-'use strict'
-
 var HasPrimitiveRepresentations = require('./primitive-rep')
 var OffersOperations = require('./offers-ops')
 var HasPredicates = require('./predicates')

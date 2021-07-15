@@ -1,5 +1,3 @@
-'use strict'
-
 var values = require('./values')
 
 var isInvalidNumber = val => typeof val === 'number' && isNaN(val)

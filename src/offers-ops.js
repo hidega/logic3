@@ -1,5 +1,3 @@
-'use strict'
-
 var Constants = require('./constants')
 var Operations = require('./operations')
 

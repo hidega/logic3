@@ -1,5 +1,3 @@
-'use strict'
-
 var evaluate = require('./evaluate')
 var assertions = require('./assertions')
 var values = require('./values')

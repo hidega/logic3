@@ -1,5 +1,3 @@
-'use strict'
-
 var values = require('./values')
 
 var fail = msg => { throw new Error(msg) }

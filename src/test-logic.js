@@ -1,5 +1,3 @@
-'use strict'
- 
 var Functions = require('./functions')
 
 var checkFunction = f => {

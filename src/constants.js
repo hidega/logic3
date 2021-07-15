@@ -1,5 +1,3 @@
-'use strict'
- 
 module.exports = {
   trueInt: 1,
   falseInt: 2,
